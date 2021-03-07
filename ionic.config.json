@@ -1,0 +1,7 @@
+{
+  "name": "getawaycheck.com-client",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
