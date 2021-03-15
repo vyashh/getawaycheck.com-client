@@ -23,7 +23,8 @@ const HomePage: React.FC = () => {
   const mapRef = useRef();
   const [center, setCenter] = useState({ lat: 52.377956, lng: 4.89707 });
   const [locations, setLocations] = useState<any>([]);
-  const [filteredLocations, setFilteredLocations] = useState<any>([]);
+  const [filteredLocations, setFilteredLocations] = useState(locations);
+  const [filter, setFilter]: any[] = useState(["drinks", "hotel", "food"]);
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY ?? "",
@@ -34,11 +35,41 @@ const HomePage: React.FC = () => {
     mapRef.current = map; // by doing this the map can be used anywhere in the code and not be rerendered
   }, []);
 
-  useEffect(() => {
+  const getLocations = () => {
     articlesRef.get().then((snapshot) => {
       const items = snapshot.docs.map((doc) => doc.data());
       setLocations(items);
+      setFilteredLocations(items);
+      console.log(items);
     });
+  };
+
+  const applyFilter = () => {
+    setFilteredLocations(
+      locations.filter((location: any) => filter.includes(location.category))
+    );
+  };
+
+  const filterLocations = (category: string) => {
+    const index = filter.indexOf(category);
+    const locations = filter;
+
+    if (index >= 0) {
+      locations.splice(index, 1);
+    } else {
+      locations.push(category);
+    }
+
+    setFilter(locations);
+    applyFilter();
+  };
+
+  useEffect(() => {
+    console.log("HomePage useEffect()");
+
+    getLocations();
+
+    // getLocations();
   }, []);
 
   if (loadError) {
@@ -52,7 +83,7 @@ const HomePage: React.FC = () => {
   return (
     <IonPage>
       <IonContent>
-        <CategoryBubble category="bar" />
+        <CategoryBubble filter={filterLocations} filterStatus={filter} />
         <GoogleMap
           mapContainerClassName="map"
           mapContainerStyle={mapContainerStyle}
@@ -61,7 +92,7 @@ const HomePage: React.FC = () => {
           options={options}
           onLoad={onMapLoad}
         >
-          {locations.map((location: any) => {
+          {filteredLocations.map((location: any) => {
             return <MapMarker key={location.id} location={location} />;
           })}
         </GoogleMap>
