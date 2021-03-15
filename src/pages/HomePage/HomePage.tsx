@@ -51,6 +51,7 @@ const HomePage: React.FC = () => {
   };
 
   const filterLocations = (category: string) => {
+    // search index of category. if exists remove else add to array. the filter array is later used in applyFilter() to filter.
     const index = filter.indexOf(category);
     const locations = filter;
 
