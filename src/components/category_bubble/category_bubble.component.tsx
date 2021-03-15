@@ -5,9 +5,6 @@ import { useState } from "react";
 interface Props {
   filterStatus: any;
   filter: any;
-  // setFilterOptions: any;
-  // updateFilter: any;
-  // getLocations: () => void;
 }
 
 const activeStyle = {

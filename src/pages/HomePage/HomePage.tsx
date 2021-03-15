@@ -5,6 +5,7 @@ import { GoogleMap, useLoadScript, InfoWindow } from "@react-google-maps/api";
 import { mapStyles } from "../../theme/map";
 import MapMarker from "../../components/map-marker/map-marker.component";
 import CategoryBubble from "../../components/category_bubble/category_bubble.component";
+import DetailsLocation from "../../components/details-location/details-location.component";
 import "./HomePage.scss";
 
 const mapContainerStyle = {
@@ -25,6 +26,9 @@ const HomePage: React.FC = () => {
   const [locations, setLocations] = useState<any>([]);
   const [filteredLocations, setFilteredLocations] = useState(locations);
   const [filter, setFilter]: any[] = useState(["drinks", "hotel", "food"]);
+
+  const [drawerVisble, setDrawerVisible] = useState(false);
+  const [drawerData, setDrawerData] = useState<any>([null]);
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY ?? "",
@@ -85,6 +89,11 @@ const HomePage: React.FC = () => {
     <IonPage>
       <IonContent>
         <CategoryBubble filter={filterLocations} filterStatus={filter} />
+        <DetailsLocation
+          isVisible={drawerVisble}
+          setIsVisible={setDrawerVisible}
+          data={drawerData}
+        />
         <GoogleMap
           mapContainerClassName="map"
           mapContainerStyle={mapContainerStyle}
@@ -94,7 +103,14 @@ const HomePage: React.FC = () => {
           onLoad={onMapLoad}
         >
           {filteredLocations.map((location: any) => {
-            return <MapMarker key={location.id} location={location} />;
+            return (
+              <MapMarker
+                key={location.id}
+                location={location}
+                setDrawerVisible={setDrawerVisible}
+                setDrawerData={setDrawerData}
+              />
+            );
           })}
         </GoogleMap>
       </IonContent>
