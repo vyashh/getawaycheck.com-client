@@ -6,6 +6,7 @@ import { IonReactRouter } from "@ionic/react-router";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import { AuthContext } from "./providers/AuthProvider";
+import Menu from "./components/menu/menu.component";
 
 const App: React.FC = () => {
   const [loggedIn, setLoggedIn] = useState(true);
@@ -14,7 +15,8 @@ const App: React.FC = () => {
     <IonApp>
       <AuthContext.Provider value={{ loggedIn }}>
         <IonReactRouter>
-          <IonRouterOutlet>
+          <Menu />
+          <IonRouterOutlet id="main">
             <Route exact path="/home">
               {loggedIn ? <HomePage /> : <Redirect to="/login" />}
             </Route>

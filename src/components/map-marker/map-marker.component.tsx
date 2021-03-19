@@ -6,9 +6,15 @@ import MarkerDrinksIcon from "../../assets/img/marker_drinks.svg";
 
 interface Props {
   location: any;
+  setDrawerVisible: any;
+  setDrawerData: any;
 }
 
-const MapMarker: React.FC<Props> = ({ location }) => {
+const MapMarker: React.FC<Props> = ({
+  location,
+  setDrawerVisible,
+  setDrawerData,
+}) => {
   const [marker, setMarker] = useState<string>(MarkerDrinksIcon);
 
   useEffect(() => {
@@ -38,7 +44,10 @@ const MapMarker: React.FC<Props> = ({ location }) => {
       }}
       key={location.id}
       position={location.latLng}
-      onClick={() => console.log(location.address)}
+      onClick={() => {
+        setDrawerVisible(true);
+        setDrawerData(location);
+      }}
     />
   );
 };

@@ -1,0 +1,13 @@
+.current-location {
+    width: 100vw;
+    height: auto;
+    position: absolute;
+    bottom: 1em;
+    z-index: 10;
+
+    &__icon {
+        position: absolute;
+        bottom: 4em;
+        right: 1em;
+    }
+}

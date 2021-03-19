@@ -5,9 +5,6 @@ import { useState } from "react";
 interface Props {
   filterStatus: any;
   filter: any;
-  // setFilterOptions: any;
-  // updateFilter: any;
-  // getLocations: () => void;
 }
 
 const activeStyle = {
@@ -41,9 +38,6 @@ const CategoryBubble: React.FC<Props> = ({ filter, filterStatus }) => {
         onClick={() => filter("hotel")}
       >
         <span>HOTELS</span>
-      </div>
-      <div className="bubble__item deals">
-        <img src={dealsIcon} alt="deals" />
       </div>
     </div>
   );
