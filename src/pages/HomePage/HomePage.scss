@@ -15,3 +15,8 @@
 .map:focus {
   outline: none;
 }
+
+ion-toolbar {
+  --background: transparent;
+  --ion-color-base: transparent !important;
+  }

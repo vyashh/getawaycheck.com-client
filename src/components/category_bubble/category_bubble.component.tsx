@@ -39,9 +39,6 @@ const CategoryBubble: React.FC<Props> = ({ filter, filterStatus }) => {
       >
         <span>HOTELS</span>
       </div>
-      <div className="bubble__item deals">
-        <img src={dealsIcon} alt="deals" />
-      </div>
     </div>
   );
 };

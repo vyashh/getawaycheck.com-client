@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from "react";
 import "./details-location.styles.scss";
 import Drawer from "react-bottom-drawer";
-import parse from "html-react-parser";
 
 interface Props {
   isVisible: boolean;
@@ -27,7 +26,6 @@ const DetailsLocation: React.FC<Props> = ({
     >
       <h1>{data.title}</h1>
       <p style={{ opacity: "0.5" }}>{data.address}</p>
-      {/* <p>{data ? parse(data.content) : null}</p> */}
       <div dangerouslySetInnerHTML={{ __html: data.content }} />
     </Drawer>
   );

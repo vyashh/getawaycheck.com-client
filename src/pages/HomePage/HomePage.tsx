@@ -1,11 +1,21 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import { db } from "../../services/firebase";
-import { IonContent, IonLoading, IonPage } from "@ionic/react";
+import {
+  IonContent,
+  IonLoading,
+  IonPage,
+  IonMenuButton,
+  IonHeader,
+  IonButtons,
+  IonToolbar,
+} from "@ionic/react";
 import { GoogleMap, useLoadScript, InfoWindow } from "@react-google-maps/api";
 import { mapStyles } from "../../theme/map";
 import MapMarker from "../../components/map-marker/map-marker.component";
+import CurrentLocation from "../../components/current-location/current-location.component";
 import CategoryBubble from "../../components/category_bubble/category_bubble.component";
 import DetailsLocation from "../../components/details-location/details-location.component";
+import SearchBar from "../../components/search-bar/search-bar.component";
 import "./HomePage.scss";
 
 const mapContainerStyle = {
@@ -87,13 +97,22 @@ const HomePage: React.FC = () => {
 
   return (
     <IonPage>
-      <IonContent>
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="end">
+            <IonMenuButton style={{ color: "white" }}></IonMenuButton>
+          </IonButtons>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent fullscreen>
         <CategoryBubble filter={filterLocations} filterStatus={filter} />
+        <CurrentLocation />
         <DetailsLocation
           isVisible={drawerVisble}
           setIsVisible={setDrawerVisible}
           data={drawerData}
         />
+        <SearchBar />
         <GoogleMap
           mapContainerClassName="map"
           mapContainerStyle={mapContainerStyle}
