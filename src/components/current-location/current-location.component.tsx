@@ -2,7 +2,7 @@ import React from "react";
 import { LocateOutline } from "react-ionicons";
 import "./current-location.styles.scss";
 
-export default function CurrentLocation() {
+const CurrentLocation: React.FC = () => {
   return (
     <div className="current-location">
       <LocateOutline
@@ -14,4 +14,6 @@ export default function CurrentLocation() {
       />
     </div>
   );
-}
+};
+
+export default CurrentLocation;

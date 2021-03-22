@@ -1,3 +1,7 @@
+ion-content {
+  --overflow: hidden;
+}
+
 .gmnoprint {
   display: none !important;
 }
@@ -19,4 +23,9 @@
 ion-toolbar {
   --background: transparent;
   --ion-color-base: transparent !important;
-  }
+}
+
+.options {
+  position: absolute;
+  bottom: 3.5em;
+}

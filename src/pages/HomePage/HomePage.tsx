@@ -8,7 +8,10 @@ import {
   IonHeader,
   IonButtons,
   IonToolbar,
+  IonMenuToggle,
 } from "@ionic/react";
+
+import "@reach/combobox/styles.css";
 import { GoogleMap, useLoadScript, InfoWindow } from "@react-google-maps/api";
 import { mapStyles } from "../../theme/map";
 import MapMarker from "../../components/map-marker/map-marker.component";
@@ -104,15 +107,17 @@ const HomePage: React.FC = () => {
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>
-        <CategoryBubble filter={filterLocations} filterStatus={filter} />
-        <CurrentLocation />
+      <IonContent fullscreen style={{ overflow: "hidden" }}>
+        <div className="options">
+          <CategoryBubble filter={filterLocations} filterStatus={filter} />
+          <CurrentLocation />
+        </div>
         <DetailsLocation
           isVisible={drawerVisble}
           setIsVisible={setDrawerVisible}
           data={drawerData}
         />
-        <SearchBar />
+        <SearchBar locations={locations} />
         <GoogleMap
           mapContainerClassName="map"
           mapContainerStyle={mapContainerStyle}

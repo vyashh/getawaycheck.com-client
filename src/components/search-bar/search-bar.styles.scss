@@ -1,0 +1,91 @@
+@import "../../theme/colors.scss";
+
+.search-bar-container {
+  position: absolute;
+  z-index: 10;
+  bottom: 0;
+}
+
+.search-bar {
+  position: relative;
+  height: auto;
+  width: 100vw;
+  background-color: #16181d;
+
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+
+  &__item {
+    text-align: center;
+  }
+
+  &__bar {
+    position: relative;
+    width: 100vw;
+    bottom: 0;
+  }
+}
+
+.search-bar__bar input {
+  width: 60vw;
+  height: 4em;
+  border-radius: 5px;
+  border: none;
+  background-color: #16181d;
+}
+
+.search-bar .item .ios .ion-focusable .hydrated .item-native {
+  background-color: red !important;
+}
+
+.search-bar__bar input:focus {
+  outline: none;
+}
+
+.suggestions__item {
+  color: black;
+}
+
+.search-bar__bar input::placeholder {
+  font-family: "Roboto";
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+.search-button__button {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%);
+  height: 2.5em;
+  width: 100vw;
+  width: 90vw;
+  background-color: --ion-color-primary;
+}
+
+.bar {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 20px;
+
+  &__bar {
+    background-color: #16181d;
+    display: flex;
+  }
+
+  &__icon {
+    &--search {
+      margin-left: 1em;
+      display: flex;
+      align-items: center;
+    }
+
+    &--close {
+      float: right;
+      margin-left: 1em;
+      display: flex;
+      align-items: center;
+    }
+  }
+}
