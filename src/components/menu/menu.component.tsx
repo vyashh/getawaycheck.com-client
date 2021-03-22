@@ -1,4 +1,5 @@
 import { IonContent, IonHeader, IonItem, IonList, IonMenu } from "@ionic/react";
+import { menuController } from "@ionic/core";
 import React, { useState, useCallback } from "react";
 import "./menu.styles.scss";
 import {
@@ -6,7 +7,9 @@ import {
   SettingsOutline,
   GiftOutline,
   NewspaperOutline,
+  HeartOutline,
 } from "react-ionicons";
+import { Link } from "react-router-dom";
 
 // interface Props {
 //   isVisible: boolean;
@@ -67,6 +70,22 @@ const Menu: React.FC = () => {
               />
             </span>
             Settings
+          </IonItem>
+          <IonItem className="menu__item">
+            <span>
+              <HeartOutline
+                color={"#ffffff"}
+                title="settings"
+                height="1em"
+                width="1em"
+              />
+            </span>
+            <Link
+              to="/about"
+              onClick={async () => await menuController.toggle()}
+            >
+              About us
+            </Link>
           </IonItem>
         </IonList>
       </IonContent>
