@@ -102,14 +102,15 @@ const SearchBar: React.FC<Props> = ({ locations }) => {
                       );
                     });
                   })}
-                  {/* {searchResults.map((location) => {
-                  return (
-                    <ComboboxOption
-                      key={location.id}
-                      value={`📍 ${location.address}`}
-                    />
-                  );
-                })} */}
+                  {searchResults.map((location) => {
+                    return (
+                      <ComboboxOption
+                        style={{ color: "black" }}
+                        key={location.id}
+                        value={`📍 ${location.address}`}
+                      />
+                    );
+                  })}
                 </ComboboxList>
               ) : (
                 <div>
