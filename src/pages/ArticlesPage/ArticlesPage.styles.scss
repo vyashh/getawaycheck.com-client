@@ -1,0 +1,12 @@
+@import "../../theme/colors.scss";
+
+ion-content {
+  --ion-background-color: #161616;
+}
+
+.side-hr {
+  border: none;
+  height: 2px;
+  width: 50%;
+  background-color: #3a3a3a;
+}
