@@ -7,11 +7,11 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import "./ArticlesPage.styles.scss";
-import ArticleItem from "../../components/article-item/article-item.component";
+import "./DealsPage.styles.scss";
+import DealItem from "../../components/deal-item/deal-item.component";
 import CategorySquare from "../../components/category_square/category_square.component";
 
-const ArticlesPage: React.FC = () => {
+const DealsPage: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
@@ -19,7 +19,7 @@ const ArticlesPage: React.FC = () => {
           <IonButtons>
             <IonBackButton />
           </IonButtons>
-          <IonTitle>Articles</IonTitle>
+          <IonTitle>DEALS</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
@@ -27,13 +27,13 @@ const ArticlesPage: React.FC = () => {
           <h4>CATEGORY</h4>
           <CategorySquare filter={null} filterStatus={null} />
           <hr className="main-hr" />
-          <ArticleItem />
+          <DealItem />
           <hr className="side-hr" />
-          <ArticleItem />
+          <DealItem />
           <hr className="side-hr" />
-          <ArticleItem />
+          <DealItem />
           <hr className="side-hr" />
-          <ArticleItem />
+          <DealItem />
           <hr className="side-hr" />
         </div>
       </IonContent>
@@ -41,4 +41,4 @@ const ArticlesPage: React.FC = () => {
   );
 };
 
-export default ArticlesPage;
+export default DealsPage;

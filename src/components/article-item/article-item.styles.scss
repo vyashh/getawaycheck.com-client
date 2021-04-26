@@ -22,6 +22,7 @@
   }
 
   &__subtitle {
+    margin-top: 0.5em;
     grid-area: 2 / 3 / 3 / 6;
     font-size: 0.8em;
     display: flex;
@@ -31,39 +32,6 @@
     justify-content: space-between;
     align-items: flex-start;
     align-content: space-between;
-    opacity: 0.6;
-  }
-
-  &__actions {
-    grid-area: 4 / 3 / 6 / 6;
-    display: flex;
-
-    &--title {
-      font-weight: bold;
-      font-size: 0.8em;
-      margin-right: 1em;
-      height: 3em;
-      width: 90%;
-      color: #000;
-      background-color: #ffc99b;
-      border-radius: 3px;
-      text-align: center;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      justify-content: center;
-      align-items: center;
-      align-content: stretch;
-    }
-
-    &--save-btn {
-      margin-right: 1em;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      align-content: center;
-    }
+    opacity: 0.3;
   }
 }

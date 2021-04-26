@@ -57,7 +57,6 @@ const HomePage: React.FC = () => {
       const items = snapshot.docs.map((doc) => doc.data());
       setLocations(items);
       setFilteredLocations(items);
-      console.log(items);
     });
   };
 
@@ -83,8 +82,6 @@ const HomePage: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log("HomePage useEffect()");
-
     getLocations();
 
     // getLocations();
