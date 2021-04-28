@@ -1,11 +1,16 @@
 @import "../../theme/colors.scss";
 
 .square {
-  margin-top: 1em;
+  margin: 1em 0.5em 0 0.5em;
+
   height: auto;
   z-index: 10;
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: stretch;
+  align-content: stretch;
 
   &__item {
     float: left;
@@ -13,7 +18,7 @@
     position: relative;
     margin-right: 0.5em;
     font-weight: bold;
-    border-radius: 10px;
+    // border-radius: 10px;
     width: 8em;
     height: 7em;
     display: flex;
@@ -24,15 +29,15 @@
 }
 
 .drinks {
-  background-color: $drinks-color;
+  // background-color: $drinks-color;
 }
 
 .food {
-  background-color: $food-color;
+  // background-color: $food-color;
 }
 
 .hotels {
-  background-color: $hotels-color;
+  // background-color: $hotels-color;
 }
 
 .deals img {

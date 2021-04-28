@@ -1,5 +1,7 @@
 import "./category_square.styles.scss";
-import { useState } from "react";
+import DrinkFilter from "../../assets/img/filters/drinks_filter.svg";
+import FoodFilter from "../../assets/img/filters/food_filter.svg";
+import HotelFilter from "../../assets/img/filters/hotel_filter.svg";
 
 interface Props {
   filterStatus: any;
@@ -18,25 +20,25 @@ const CategorySquare: React.FC<Props> = ({ filter, filterStatus }) => {
   return (
     <div className="square">
       <div
-        className={`square__item drinks`}
+        className={``}
         // style={filterStatus.includes("drinks") ? activeStyle : deactiveStyle}
         onClick={() => filter("drinks")}
       >
-        <span>DRINKS</span>
+        <img src={DrinkFilter} alt="drinks category" />
       </div>
       <div
-        className={`square__item food `}
+        className={` `}
         // style={filterStatus.includes("food") ? activeStyle : deactiveStyle}
         onClick={() => filter("food")}
       >
-        <span>FOOD</span>
+        <img src={FoodFilter} alt="food category" />
       </div>
       <div
-        className={`square__item hotels`}
+        className={``}
         // style={filterStatus.includes("hotel") ? activeStyle : deactiveStyle}
         onClick={() => filter("hotel")}
       >
-        <span>HOTELS</span>
+        <img src={HotelFilter} alt="hotel category" />
       </div>
     </div>
   );
