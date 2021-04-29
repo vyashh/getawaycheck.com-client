@@ -104,7 +104,7 @@ const HomePage: React.FC = () => {
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>
+      <IonContent className="homepage-content" fullscreen>
         <div className="options">
           <CategoryBubble filter={filterLocations} filterStatus={filter} />
           <CurrentLocation />

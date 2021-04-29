@@ -9,12 +9,15 @@ export const getSingleArticle = async (id) => {
 };
 
 export const allArticles = async () => {
-  const articles = [];
-  articlesRef.then((snapshot) => {
-    const items = snapshot.docs.map((doc) => doc.data());
-    articles = items;
+  let articles = null;
+  await articlesRef.get().then((snapshot) => {
+    articles = snapshot.docs.map((doc) => doc.data());
   });
   return articles;
+};
+
+export const testFunc = async () => {
+  return true;
 };
 
 export const addArticle = async (article) => {
