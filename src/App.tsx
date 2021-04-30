@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./app.styles.scss";
 import { Redirect, Route } from "react-router-dom";
+import PrivateRoute from "./services/PrivateRoute";
 import { IonApp, IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import HomePage from "./pages/HomePage/HomePage";
@@ -8,39 +9,32 @@ import AboutPage from "./pages/AboutPage/AboutPage";
 import DealsPage from "./pages/DealsPage/DealsPage";
 import ArticlesPage from "./pages/ArticlesPage/ArticlesPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
-import { AuthContext } from "./providers/AuthProvider";
+import { AuthProvider } from "./providers/AuthProvider";
 import Menu from "./components/menu/menu.component";
 
 const App: React.FC = () => {
-  const [loggedIn, setLoggedIn] = useState(true);
-
   return (
     <IonApp>
-      <AuthContext.Provider value={{ loggedIn }}>
+      <AuthProvider>
         <IonReactRouter>
           <Menu />
           <IonRouterOutlet id="main">
-            <Route exact path="/home">
-              {loggedIn ? <HomePage /> : <Redirect to="/login" />}
-            </Route>
-            <Route exact path="/about">
+            <PrivateRoute exact path="/" component={HomePage} />
+            <Route path="/about">
               <AboutPage />
             </Route>
-            <Route exact path="/deals">
+            <Route path="/deals">
               <DealsPage />
             </Route>
-            <Route exact path="/articles">
+            <Route path="/articles">
               <ArticlesPage />
             </Route>
-            <Route exact path="/login">
-              {loggedIn ? <Redirect to="/home" /> : <LoginPage />}
-            </Route>
-            <Route exact path="/">
-              <Redirect to="/home" />
+            <Route path="/login">
+              <LoginPage />
             </Route>
           </IonRouterOutlet>
         </IonReactRouter>
-      </AuthContext.Provider>
+      </AuthProvider>
     </IonApp>
   );
 };

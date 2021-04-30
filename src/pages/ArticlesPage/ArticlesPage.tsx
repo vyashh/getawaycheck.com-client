@@ -4,25 +4,27 @@ import {
   IonContent,
   IonHeader,
   IonList,
+  IonLoading,
   IonPage,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import "./ArticlesPage.styles.scss";
 import ArticleItem from "../../components/article-item/article-item.component";
 import CategorySquare from "../../components/category_square/category_square.component";
 import DetailsLocation from "../../components/details-location/details-location.component";
-import { allArticles } from "../../services/firestore";
+import { Context } from "../../services/store";
 
 const ArticlesPage: React.FC = () => {
-  const [articles, setArticles] = useState<any>([]);
+  const { articleData } = useContext(Context);
+  const [articles, setArticles] = articleData;
   const [drawerVisble, setDrawerVisible] = useState(false);
   const [drawerData, setDrawerData] = useState<any>([null]);
 
-  useEffect(() => {
-    allArticles().then((res) => setArticles(res));
-  }, []);
+  if (!articles) {
+    return <IonLoading isOpen={true} />;
+  }
 
   return (
     <IonPage>

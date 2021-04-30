@@ -57,7 +57,7 @@ const ArticleItem: React.FC<Props> = ({
         <p>1</p>
       </div> */}
       <div className="article-item__subtitle">
-        <LinesEllipsis text={text} maxLine="5" basedOn="words" />
+        <LinesEllipsis text={text} maxLine="2" basedOn="words" />
       </div>
     </div>
   );

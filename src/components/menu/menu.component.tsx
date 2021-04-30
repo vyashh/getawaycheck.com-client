@@ -1,6 +1,6 @@
 import { IonContent, IonHeader, IonItem, IonList, IonMenu } from "@ionic/react";
 import { menuController } from "@ionic/core";
-import React, { useState, useCallback } from "react";
+import React from "react";
 import "./menu.styles.scss";
 import {
   PersonCircleOutline,
