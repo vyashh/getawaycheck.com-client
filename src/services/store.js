@@ -6,12 +6,13 @@ export const Context = React.createContext();
 
 const Store = ({ children }) => {
   const articlesRef = db.collection("articles");
-  const tagsRef = db.collection("keywords");
+  const usersRef = db.collection("users");
   const [errorLogin, setErrorLogin] = useState("");
   const [loadingIndicator, setLoadingIndicator] = useState(true);
   const [articleData, setArticleData] = useState();
   const [tagsData, setTagsData] = useState();
   const [alertMessage, setAlertMessage] = useState("");
+  const [userData, setUserData] = useState();
 
   const fetchArticleData = () => {
     articlesRef.get().then((item) => {
@@ -21,17 +22,9 @@ const Store = ({ children }) => {
     });
   };
 
-  const fetchTagsData = () => {
-    tagsRef.get().then((item) => {
-      const items = item.docs.map((doc) => doc.data());
-      setTagsData(items[0].suggestions);
-    });
-  };
-
   useEffect(() => {
     fetchArticleData();
-    fetchTagsData();
-  }, []);
+  });
 
   return (
     <Context.Provider
@@ -41,6 +34,7 @@ const Store = ({ children }) => {
         articleData: [articleData, setArticleData],
         tagsData: [tagsData, setTagsData],
         alertMessage: [alertMessage, setAlertMessage],
+        userData: [userData, setUserData],
       }}
     >
       {children}

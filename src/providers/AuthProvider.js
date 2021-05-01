@@ -9,7 +9,10 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
-  const { errorLogin, loadingIndicator } = useContext(Context);
+  const { errorLogin, loadingIndicator, userData, setUserData } = useContext(
+    Context
+  );
+  const [currentUserData, setCurrentUserData] = userData;
   const [loginError, setLoginError] = errorLogin;
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = loadingIndicator;
@@ -38,23 +41,19 @@ export function AuthProvider({ children }) {
     return currentUser.updatePassword(password);
   }
 
+  function getUserData(uid) {
+    db.collection("users")
+      .doc(uid)
+      .get()
+      .then((res) => setCurrentUserData(res.data()));
+  }
+
   useEffect(() => {
     setLoading(true);
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        const userRef = db.collection("users").doc(user.uid);
-        userRef.get().then((doc) => {
-          const user = doc.data();
-          // check if user is admin
-          if (!user.isAdmin) {
-            logout();
-            setLoginError("User has not admin rights");
-            setCurrentUser(null);
-          }
-        });
-      }
       setCurrentUser(user);
       setLoading(false);
+      getUserData(user.uid);
     });
 
     return unsubscribe;
