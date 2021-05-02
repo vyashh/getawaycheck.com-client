@@ -25,7 +25,7 @@ const DealsPage: React.FC = () => {
       <IonContent>
         <div className="deals-page">
           <h4>CATEGORY</h4>
-          <CategorySquare filter={null} filterStatus={null} />
+          {/* <CategorySquare filter={null} filterStatus={null} /> */}
           <hr className="main-hr" />
           <DealItem />
           <hr className="side-hr" />

@@ -4,6 +4,7 @@ div[class^="rbd-"][class*="-dr"] {
 }
 
 .drawer {
+  // margin: 0 40em 0 40em;
   &__header {
     display: flex;
     flex-direction: row;

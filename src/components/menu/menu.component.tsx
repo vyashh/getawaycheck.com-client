@@ -43,7 +43,7 @@ const Menu: React.FC = () => {
               Articles
             </Link>
           </IonItem>
-          <IonItem className="menu__item">
+          {/* <IonItem className="menu__item">
             <span>
               <GiftOutline
                 color={"#ffffff"}
@@ -80,7 +80,7 @@ const Menu: React.FC = () => {
               />
             </span>
             Settings
-          </IonItem>
+          </IonItem> */}
           <IonItem className="menu__item">
             <span>
               <HeartOutline

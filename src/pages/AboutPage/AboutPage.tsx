@@ -20,12 +20,16 @@ const AboutPage: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <div style={{ marginRight: "1em", marginLeft: "1em" }}>
-          <br /> Getaway Check is het blog waarmee je op een gemakkelijke en
-          snelle manier de leukste plekken in Amsterdam vindt, gebaseerd op jouw
-          locatie. Van restaurants en cafés tot hotels. Alles wat je zoekt
-          tijdens een bezoek aan Amsterdam. Snel, simpel, betrouwbaar en passend
-          aanbod. Check!
+        <div
+          style={{ marginRight: "1em", marginLeft: "1em", marginTop: "1em" }}
+        >
+          Getaway Check is het platform waarmee je de leukste trendy hotspots in
+          Amsterdam vindt, gebaseerd op jouw huidige locatie. Door middel van
+          een zoekfilter kun je precies vinden waar je op dat moment naar op
+          zoek bent. Ook is het mogelijk om deze hotspots op te slaan en te
+          liken via je persoonlijke account. Van restaurants en cafés tot
+          hotels. Alles wat je zoekt tijdens een bezoek aan Amsterdam. Snel,
+          simpel, betrouwbaar en passend aanbod. Check!
         </div>
       </IonContent>
     </IonPage>

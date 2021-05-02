@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { db } from "./firebase";
 import { getTags } from "./firestore";
 
@@ -14,16 +14,19 @@ const Store = ({ children }) => {
   const [alertMessage, setAlertMessage] = useState("");
   const [userData, setUserData] = useState();
 
-  const fetchArticleData = () => {
+  const fetchArticleData = useCallback(() => {
     articlesRef.get().then((item) => {
+      console.log("store: read articles ");
       const items = item.docs.map((doc) => doc.data());
+
       setArticleData(items);
       setLoadingIndicator(false);
     });
-  };
+  }, []);
 
   useEffect(() => {
-    fetchArticleData();
+    console.log("store: useEffect");
+    // fetchArticleData();
   });
 
   return (

@@ -25,6 +25,8 @@ const DetailsLocation: React.FC<Props> = ({
   const [isLiked, setIsLiked] = useState(false);
 
   const onLikeHandler = () => {
+    console.log(userData);
+
     addLikedArticle(data.id, currentUser.uid);
     setIsLiked(!isLiked);
   };
@@ -74,14 +76,16 @@ const DetailsLocation: React.FC<Props> = ({
       onClose={closeDrawer}
       isVisible={isVisible}
     >
-      <div className="drawer__header">
-        <h1>{data.title}</h1>
-        <div className="drawer__header__favorite" onClick={onLikeHandler}>
-          {renderLikeButton()}
+      <div className="drawer">
+        <div className="drawer__header">
+          <h1>{data.title}</h1>
+          <div className="drawer__header__favorite" onClick={onLikeHandler}>
+            {renderLikeButton()}
+          </div>
         </div>
+        <p style={{ opacity: "0.5" }}>{data.address}</p>
+        <div dangerouslySetInnerHTML={{ __html: data.content }} />
       </div>
-      <p style={{ opacity: "0.5" }}>{data.address}</p>
-      <div dangerouslySetInnerHTML={{ __html: data.content }} />
     </Drawer>
   );
 };
