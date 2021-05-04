@@ -108,9 +108,9 @@ const DetailsLocation: React.FC<Props> = ({
       <div className="drawer">
         <div className="drawer__header">
           <h1>{data.title}</h1>
-          <div className="drawer__header__favorite">
+          {/* <div className="drawer__header__favorite">
             {renderLikeButton(onLikeHandler)}
-          </div>
+          </div> */}
         </div>
         <p style={{ opacity: "0.5" }}>{data.address}</p>
         <div dangerouslySetInnerHTML={{ __html: data.content }} />

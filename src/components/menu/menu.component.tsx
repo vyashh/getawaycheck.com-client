@@ -21,9 +21,9 @@ import { useAuth } from "../../providers/AuthProvider";
 // }
 
 const Menu: React.FC = () => {
-  const { userData } = useContext(Context);
-  const { logout } = useAuth();
-  const [currentUser, setCurrentUser] = userData;
+  // const { userData } = useContext(Context);
+  // const { logout } = useAuth();
+  // const [currentUser, setCurrentUser] = userData;
 
   return (
     <IonMenu side="end" menuId="main" contentId="main">
@@ -66,7 +66,7 @@ const Menu: React.FC = () => {
               Deals
             </Link>
           </IonItem>
-          <IonItem className="menu__item">
+          {/* <IonItem className="menu__item">
             <span>
               <PersonCircleOutline
                 color={"#ffffff"}
@@ -87,7 +87,7 @@ const Menu: React.FC = () => {
               />
             </span>
             Settings
-          </IonItem>
+          </IonItem> */}
           <IonItem className="menu__item">
             <span>
               <HeartOutline
@@ -104,7 +104,7 @@ const Menu: React.FC = () => {
               About us
             </Link>
           </IonItem>
-          {currentUser && (
+          {/* {currentUser && (
             <IonItem className="menu__item" onClick={logout}>
               <span>
                 <LogOutOutline
@@ -116,7 +116,7 @@ const Menu: React.FC = () => {
               </span>
               Logout
             </IonItem>
-          )}
+          )} */}
         </IonList>
       </IonContent>
     </IonMenu>

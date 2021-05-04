@@ -20,4 +20,22 @@ ion-content {
 
 .deals-page {
   margin: 0 1em 0 1em;
+
+  &__coming-soon {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    height: 100vh;
+
+    & img {
+      width: 50%;
+      height: auto;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+    }
+  }
 }
