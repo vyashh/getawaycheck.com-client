@@ -1,0 +1,20 @@
+@import "../../theme/include-media";
+
+// als class begint en eindigt met...
+div[class^="rbd-"][class*="-dr"] {
+  background: black;
+}
+
+.drawer {
+  @include media(">=desktop") {
+    margin: 0 20em 0 20em;
+  }
+  &__header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    align-content: stretch;
+  }
+}

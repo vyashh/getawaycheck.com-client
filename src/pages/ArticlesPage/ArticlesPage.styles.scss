@@ -1,0 +1,27 @@
+@import "../../theme/colors.scss";
+@import "../../theme/include-media";
+
+ion-content {
+  --ion-background-color: #161616;
+}
+
+.side-hr {
+  width: 50%;
+  text-align: right;
+  margin-right: 0;
+  height: 2px;
+  background-color: #3a3a3a;
+}
+
+.main-hr {
+  margin: 1em 1em 0 0;
+  height: 2px;
+  background-color: #3a3a3a;
+}
+
+.articles-page {
+  margin: 0 1em 0 1em;
+  @include media(">=desktop") {
+    margin: 0 40em 0 40em;
+  }
+}

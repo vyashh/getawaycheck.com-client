@@ -1,40 +1,42 @@
-import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet } from '@ionic/react';
-import { IonReactRouter } from '@ionic/react-router';
-import Home from './pages/Home';
+import { useState } from "react";
+import "./app.styles.scss";
+import { Redirect, Route } from "react-router-dom";
+import PrivateRoute from "./services/PrivateRoute";
+import { IonApp, IonRouterOutlet } from "@ionic/react";
+import { IonReactRouter } from "@ionic/react-router";
+import HomePage from "./pages/HomePage/HomePage";
+import AboutPage from "./pages/AboutPage/AboutPage";
+import DealsPage from "./pages/DealsPage/DealsPage";
+import ArticlesPage from "./pages/ArticlesPage/ArticlesPage";
+import LoginPage from "./pages/LoginPage/LoginPage";
+import { AuthProvider } from "./providers/AuthProvider";
+import Menu from "./components/menu/menu.component";
 
-/* Core CSS required for Ionic components to work properly */
-import '@ionic/react/css/core.css';
-
-/* Basic CSS for apps built with Ionic */
-import '@ionic/react/css/normalize.css';
-import '@ionic/react/css/structure.css';
-import '@ionic/react/css/typography.css';
-
-/* Optional CSS utils that can be commented out */
-import '@ionic/react/css/padding.css';
-import '@ionic/react/css/float-elements.css';
-import '@ionic/react/css/text-alignment.css';
-import '@ionic/react/css/text-transformation.css';
-import '@ionic/react/css/flex-utils.css';
-import '@ionic/react/css/display.css';
-
-/* Theme variables */
-import './theme/variables.css';
-
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route exact path="/home">
-          <Home />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
-);
+const App: React.FC = () => {
+  return (
+    <IonApp>
+      <AuthProvider>
+        <IonReactRouter>
+          <Menu />
+          <IonRouterOutlet id="main">
+            <PrivateRoute exact path="/" component={HomePage} />
+            <Route path="/about">
+              <AboutPage />
+            </Route>
+            <Route path="/deals">
+              <DealsPage />
+            </Route>
+            <Route path="/articles">
+              <ArticlesPage />
+            </Route>
+            <Route path="/login">
+              <LoginPage />
+            </Route>
+          </IonRouterOutlet>
+        </IonReactRouter>
+      </AuthProvider>
+    </IonApp>
+  );
+};
 
 export default App;

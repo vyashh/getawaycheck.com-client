@@ -1,0 +1,47 @@
+@import "../../theme/colors.scss";
+
+.bubble {
+  width: 100vw;
+  height: auto;
+  position: absolute;
+  // bottom: 1em;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+
+  &__item {
+    float: left;
+    color: black;
+    position: relative;
+    margin-right: 0.5em;
+    font-weight: bold;
+    border-radius: 50px;
+    width: 8em;
+    height: 2.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+  }
+}
+
+.drinks {
+  background-color: $drinks-color;
+}
+
+.food {
+  background-color: $food-color;
+}
+
+.hotels {
+  background-color: $hotels-color;
+}
+
+.deals img {
+  margin-bottom: 1.5em;
+  height: auto;
+}
+
+.opacity {
+  opacity: 0.5;
+}

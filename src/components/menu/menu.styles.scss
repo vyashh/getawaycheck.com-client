@@ -1,0 +1,19 @@
+.menu {
+  margin-top: 5em;
+  --background: var(--ion-background-color, #fff) !important;
+
+  &__item {
+    --background: var(--ion-background-color, #fff);
+
+    font-size: 1.5em;
+  }
+
+  &__item a {
+    // color: white;
+    text-decoration: none;
+  }
+
+  &__item span {
+    margin-right: 1em;
+  }
+}
