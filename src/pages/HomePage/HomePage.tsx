@@ -1,4 +1,10 @@
-import React, { useState, useCallback, useRef, useEffect } from "react";
+import React, {
+  useState,
+  useCallback,
+  useRef,
+  useEffect,
+  useContext,
+} from "react";
 import { db } from "../../services/firebase";
 import {
   IonContent,
@@ -19,6 +25,7 @@ import CurrentLocation from "../../components/current-location/current-location.
 import CategoryBubble from "../../components/category_bubble/category_bubble.component";
 import DetailsLocation from "../../components/details-location/details-location.component";
 import SearchBar from "../../components/search-bar/search-bar.component";
+import { Context } from "../../services/store";
 import "./HomePage.scss";
 
 const mapContainerStyle = {
@@ -33,10 +40,12 @@ const options = {
 };
 
 const HomePage: React.FC = () => {
+  const { articleData } = useContext(Context);
   const articlesRef = db.collection("articles");
   const mapRef = useRef();
   const [center, setCenter] = useState({ lat: 52.377956, lng: 4.89707 });
   const [locations, setLocations] = useState<any>([]);
+  const [articles, setArticles] = articleData;
   const [filteredLocations, setFilteredLocations] = useState(locations);
   const [filter, setFilter]: any[] = useState(["drinks", "hotel", "food"]);
 
@@ -56,6 +65,7 @@ const HomePage: React.FC = () => {
     articlesRef.get().then((snapshot) => {
       const items = snapshot.docs.map((doc) => doc.data());
       setLocations(items);
+      setArticles(items);
       setFilteredLocations(items);
     });
   };
@@ -107,14 +117,15 @@ const HomePage: React.FC = () => {
       <IonContent className="homepage-content" fullscreen>
         <div className="options">
           <CategoryBubble filter={filterLocations} filterStatus={filter} />
-          <CurrentLocation />
+          {/* <CurrentLocation /> */}
         </div>
         <DetailsLocation
           isVisible={drawerVisble}
           setIsVisible={setDrawerVisible}
           data={drawerData}
+          getLocation={getLocations}
         />
-        <SearchBar locations={locations} />
+        {/* <SearchBar locations={locations} /> */}
         <GoogleMap
           mapContainerClassName="map"
           mapContainerStyle={mapContainerStyle}

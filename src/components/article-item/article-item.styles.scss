@@ -1,10 +1,14 @@
+@import "../../theme/include-media";
+
 .article-item {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   margin: 1em 0 1em 0;
-
+  // @include media(">=desktop") {
+  //   margin: 0 40em 0 40em;
+  // }
   &__image {
     border-radius: 10px;
     border: none;

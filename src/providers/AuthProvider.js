@@ -9,10 +9,11 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
-  const { errorLogin, loadingIndicator, userData, setUserData } = useContext(
+  const { errorLogin, loadingIndicator, userData, userLikeData } = useContext(
     Context
   );
   const [currentUserData, setCurrentUserData] = userData;
+  const [currentUserLikeData, setCurrentUserLikeData] = userLikeData;
   const [loginError, setLoginError] = errorLogin;
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = loadingIndicator;
@@ -45,7 +46,11 @@ export function AuthProvider({ children }) {
     db.collection("users")
       .doc(uid)
       .get()
-      .then((res) => setCurrentUserData(res.data()));
+      .then((res) => {
+        const userData = res.data();
+        setCurrentUserData(userData);
+        setCurrentUserLikeData(userData.liked_articles);
+      });
   }
 
   useEffect(() => {

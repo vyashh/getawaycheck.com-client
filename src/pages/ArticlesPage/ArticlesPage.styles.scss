@@ -1,4 +1,5 @@
 @import "../../theme/colors.scss";
+@import "../../theme/include-media";
 
 ion-content {
   --ion-background-color: #161616;
@@ -18,6 +19,9 @@ ion-content {
   background-color: #3a3a3a;
 }
 
-.deals-page {
+.articles-page {
   margin: 0 1em 0 1em;
+  @include media(">=desktop") {
+    margin: 0 40em 0 40em;
+  }
 }

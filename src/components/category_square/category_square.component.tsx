@@ -21,21 +21,21 @@ const CategorySquare: React.FC<Props> = ({ filter, filterStatus }) => {
     <div className="square">
       <div
         className={``}
-        // style={filterStatus.includes("drinks") ? activeStyle : deactiveStyle}
+        style={filterStatus.includes("drinks") ? activeStyle : deactiveStyle}
         onClick={() => filter("drinks")}
       >
         <img src={DrinkFilter} alt="drinks category" />
       </div>
       <div
         className={` `}
-        // style={filterStatus.includes("food") ? activeStyle : deactiveStyle}
+        style={filterStatus.includes("food") ? activeStyle : deactiveStyle}
         onClick={() => filter("food")}
       >
         <img src={FoodFilter} alt="food category" />
       </div>
       <div
         className={``}
-        // style={filterStatus.includes("hotel") ? activeStyle : deactiveStyle}
+        style={filterStatus.includes("hotel") ? activeStyle : deactiveStyle}
         onClick={() => filter("hotel")}
       >
         <img src={HotelFilter} alt="hotel category" />
