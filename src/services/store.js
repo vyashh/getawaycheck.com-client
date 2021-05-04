@@ -13,6 +13,7 @@ const Store = ({ children }) => {
   const [tagsData, setTagsData] = useState();
   const [alertMessage, setAlertMessage] = useState("");
   const [userData, setUserData] = useState();
+  const [userLikeData, setUserLikeData] = useState();
 
   const fetchArticleData = useCallback(() => {
     articlesRef.get().then((item) => {
@@ -38,6 +39,7 @@ const Store = ({ children }) => {
         tagsData: [tagsData, setTagsData],
         alertMessage: [alertMessage, setAlertMessage],
         userData: [userData, setUserData],
+        userLikeData: [userLikeData, setUserLikeData],
       }}
     >
       {children}

@@ -1,6 +1,6 @@
 import { IonContent, IonHeader, IonItem, IonList, IonMenu } from "@ionic/react";
 import { menuController } from "@ionic/core";
-import React from "react";
+import React, { useContext } from "react";
 import "./menu.styles.scss";
 import {
   PersonCircleOutline,
@@ -8,8 +8,11 @@ import {
   GiftOutline,
   NewspaperOutline,
   HeartOutline,
+  LogOutOutline,
 } from "react-ionicons";
 import { Link } from "react-router-dom";
+import { Context } from "../../services/store";
+import { useAuth } from "../../providers/AuthProvider";
 
 // interface Props {
 //   isVisible: boolean;
@@ -18,6 +21,10 @@ import { Link } from "react-router-dom";
 // }
 
 const Menu: React.FC = () => {
+  const { userData } = useContext(Context);
+  const { logout } = useAuth();
+  const [currentUser, setCurrentUser] = userData;
+
   return (
     <IonMenu side="end" menuId="main" contentId="main">
       <IonHeader>
@@ -43,7 +50,7 @@ const Menu: React.FC = () => {
               Articles
             </Link>
           </IonItem>
-          {/* <IonItem className="menu__item">
+          <IonItem className="menu__item">
             <span>
               <GiftOutline
                 color={"#ffffff"}
@@ -80,7 +87,7 @@ const Menu: React.FC = () => {
               />
             </span>
             Settings
-          </IonItem> */}
+          </IonItem>
           <IonItem className="menu__item">
             <span>
               <HeartOutline
@@ -97,6 +104,19 @@ const Menu: React.FC = () => {
               About us
             </Link>
           </IonItem>
+          {currentUser && (
+            <IonItem className="menu__item" onClick={logout}>
+              <span>
+                <LogOutOutline
+                  color={"#ffffff"}
+                  title="profile"
+                  height="1em"
+                  width="1em"
+                />
+              </span>
+              Logout
+            </IonItem>
+          )}
         </IonList>
       </IonContent>
     </IonMenu>

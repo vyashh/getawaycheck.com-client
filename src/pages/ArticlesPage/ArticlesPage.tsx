@@ -76,28 +76,29 @@ const ArticlesPage: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent forceOverscroll={true}>
-        <div className="deals-page">
-          <div className="deals-page__header" slot="fixed">
+        <div className="articles-page">
+          <div className="articles-page__header" slot="fixed">
             <h4>CATEGORY</h4>
             <CategorySquare filter={filterLocations} filterStatus={filter} />
           </div>
           <hr className="main-hr" />
           {/* <FlipMove> */}
-            {filteredLocations.map((article: any) => (
-              <div key={article.address}>
-                <ArticleItem
-                  data={article}
-                  setDrawerVisible={setDrawerVisible}
-                  setDrawerData={setDrawerData}
-                />
-                <hr className="side-hr" />
-              </div>
-            ))}
+          {filteredLocations.map((article: any) => (
+            <div key={article.address}>
+              <ArticleItem
+                data={article}
+                setDrawerVisible={setDrawerVisible}
+                setDrawerData={setDrawerData}
+              />
+              <hr className="side-hr" />
+            </div>
+          ))}
           {/* </FlipMove> */}
           <DetailsLocation
             isVisible={drawerVisble}
             setIsVisible={setDrawerVisible}
             data={drawerData}
+            getLocation={getLocations}
           />
         </div>
       </IonContent>
