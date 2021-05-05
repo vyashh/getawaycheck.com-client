@@ -19,7 +19,10 @@ const App: React.FC = () => {
         <IonReactRouter>
           <Menu />
           <IonRouterOutlet id="main">
-            <PrivateRoute exact path="/" component={HomePage} />
+            {/* <PrivateRoute exact path="/" component={HomePage} /> */}
+            <Route exact path="/">
+              <HomePage />
+            </Route>
             <Route path="/about">
               <AboutPage />
             </Route>
@@ -29,9 +32,9 @@ const App: React.FC = () => {
             <Route path="/articles">
               <ArticlesPage />
             </Route>
-            <Route path="/login">
-              <LoginPage />
-            </Route>
+            {/* <Route path="/login">
+            <LoginPage />
+          </Route> */}
           </IonRouterOutlet>
         </IonReactRouter>
       </AuthProvider>
