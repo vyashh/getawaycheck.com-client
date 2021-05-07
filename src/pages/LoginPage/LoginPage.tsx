@@ -18,12 +18,13 @@ const LoginPage: React.FC = () => {
       // setError("");
       // setLoading(true);
       login(emailRef.current.value, passwordRef.current.value);
-      // history.push("/");
     } catch {
       // setError("Failed to log in");
     }
     // setLoading(false);
   };
+
+  console.log(currentUser);
 
   if (currentUser) {
     return <Redirect to="/" />;

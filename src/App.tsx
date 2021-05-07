@@ -32,9 +32,9 @@ const App: React.FC = () => {
             <Route path="/articles">
               <ArticlesPage />
             </Route>
-            {/* <Route path="/login">
-            <LoginPage />
-          </Route> */}
+            <Route path="/login">
+              <LoginPage />
+            </Route>
           </IonRouterOutlet>
         </IonReactRouter>
       </AuthProvider>

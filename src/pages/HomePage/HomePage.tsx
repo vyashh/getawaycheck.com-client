@@ -15,6 +15,7 @@ import {
   IonButtons,
   IonToolbar,
   IonMenuToggle,
+  IonTitle,
 } from "@ionic/react";
 
 import "@reach/combobox/styles.css";
@@ -112,6 +113,7 @@ const HomePage: React.FC = () => {
           <IonButtons slot="end">
             <IonMenuButton style={{ color: "white" }}></IonMenuButton>
           </IonButtons>
+          <IonTitle className="homepage-title">GETAWAYCHECK</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent className="homepage-content" fullscreen>
@@ -135,14 +137,16 @@ const HomePage: React.FC = () => {
           onLoad={onMapLoad}
         >
           {filteredLocations.map((location: any) => {
-            return (
-              <MapMarker
-                key={location.id}
-                location={location}
-                setDrawerVisible={setDrawerVisible}
-                setDrawerData={setDrawerData}
-              />
-            );
+            if (location.isPublic) {
+              return (
+                <MapMarker
+                  key={location.id}
+                  location={location}
+                  setDrawerVisible={setDrawerVisible}
+                  setDrawerData={setDrawerData}
+                />
+              );
+            }
           })}
         </GoogleMap>
       </IonContent>

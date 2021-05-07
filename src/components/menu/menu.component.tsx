@@ -21,9 +21,14 @@ import { useAuth } from "../../providers/AuthProvider";
 // }
 
 const Menu: React.FC = () => {
-  // const { userData } = useContext(Context);
-  // const { logout } = useAuth();
-  // const [currentUser, setCurrentUser] = userData;
+  const { userData } = useContext(Context);
+  const { logout } = useAuth();
+  const [currentUser, setCurrentUser] = userData;
+
+  const logoutHandler = () => {
+    logout();
+    window.location.reload();
+  };
 
   return (
     <IonMenu side="end" menuId="main" contentId="main">
@@ -66,18 +71,37 @@ const Menu: React.FC = () => {
               Deals
             </Link>
           </IonItem>
+          {currentUser ? (
+            <IonItem className="menu__item">
+              <span>
+                <PersonCircleOutline
+                  color={"#ffffff"}
+                  title="profile"
+                  height="1em"
+                  width="1em"
+                />
+              </span>
+              Profile
+            </IonItem>
+          ) : (
+            <IonItem className="menu__item">
+              <span>
+                <PersonCircleOutline
+                  color={"#ffffff"}
+                  title="profile"
+                  height="1em"
+                  width="1em"
+                />
+              </span>
+              <Link
+                to="/login"
+                onClick={async () => await menuController.toggle()}
+              >
+                Login
+              </Link>
+            </IonItem>
+          )}
           {/* <IonItem className="menu__item">
-            <span>
-              <PersonCircleOutline
-                color={"#ffffff"}
-                title="profile"
-                height="1em"
-                width="1em"
-              />
-            </span>
-            Profile
-          </IonItem>
-          <IonItem className="menu__item">
             <span>
               <SettingsOutline
                 color={"#ffffff"}
@@ -104,8 +128,8 @@ const Menu: React.FC = () => {
               About us
             </Link>
           </IonItem>
-          {/* {currentUser && (
-            <IonItem className="menu__item" onClick={logout}>
+          {currentUser && (
+            <IonItem className="menu__item" onClick={logoutHandler}>
               <span>
                 <LogOutOutline
                   color={"#ffffff"}
@@ -116,7 +140,7 @@ const Menu: React.FC = () => {
               </span>
               Logout
             </IonItem>
-          )} */}
+          )}
         </IonList>
       </IonContent>
     </IonMenu>

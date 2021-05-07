@@ -6,16 +6,23 @@ import { Context } from "../../services/store";
 import { HeartOutline, HeartDislikeOutline } from "react-ionicons";
 import { Link } from "react-router-dom";
 import { handleLikeArticle } from "../../services/firestore";
+import LikeButton from "../like-button/like-button.component";
 import { db } from "../../services/firebase";
 import firebase from "firebase/app";
 import dayjs from "dayjs";
-
+import { IonLoading } from "@ionic/react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper.min.css";
+import "swiper/components/pagination/pagination.min.css";
+import SwiperCore, { Pagination } from "swiper/core";
 interface Props {
   isVisible: boolean;
   setIsVisible: any;
   data: any;
   getLocation: any;
 }
+
+SwiperCore.use([Pagination]);
 
 const DetailsLocation: React.FC<Props> = ({
   isVisible,
@@ -96,27 +103,55 @@ const DetailsLocation: React.FC<Props> = ({
       }
     }
     setIsLiked(false);
+    console.log(currentUserData);
   }, []);
 
-  return (
-    <Drawer
-      duration={250}
-      hideScrollbars={true}
-      onClose={closeDrawer}
-      isVisible={isVisible}
-    >
-      <div className="drawer">
-        <div className="drawer__header">
-          <h1>{data.title}</h1>
-          {/* <div className="drawer__header__favorite">
-            {renderLikeButton(onLikeHandler)}
-          </div> */}
+  if (!data && !currentUserData) {
+    return <IonLoading isOpen={true} />;
+  } else {
+    return (
+      <Drawer
+        duration={250}
+        hideScrollbars={true}
+        onClose={closeDrawer}
+        isVisible={isVisible}
+      >
+        <div className="drawer">
+          {data.imageUrls && (
+            <Swiper
+              slidesPerView={"auto"}
+              centeredSlides={true}
+              spaceBetween={30}
+              pagination={{
+                clickable: true,
+              }}
+              navigation={true}
+              className="drawer__slider--desktop"
+            >
+              {data.imageUrls.map((url) => (
+                <SwiperSlide>
+                  <img
+                    src={url.url}
+                    alt="thumbnail"
+                    style={{ objectFit: "contain" }}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          )}
+
+          <div className="drawer__header">
+            <h1>{data.title}</h1>
+            <div className="drawer__header__favorite">
+              <LikeButton data={data} articleId={data.id} />
+            </div>
+          </div>
+          <p style={{ opacity: "0.5" }}>{data.address}</p>
+          <div dangerouslySetInnerHTML={{ __html: data.content }} />
         </div>
-        <p style={{ opacity: "0.5" }}>{data.address}</p>
-        <div dangerouslySetInnerHTML={{ __html: data.content }} />
-      </div>
-    </Drawer>
-  );
+      </Drawer>
+    );
+  }
 };
 
 export default DetailsLocation;

@@ -1,3 +1,6 @@
+@import "../../theme/colors.scss";
+@import "../../theme/include-media";
+
 .homepage-content {
   --overflow: hidden;
 }
@@ -15,6 +18,15 @@
 //   transform: perspective(500px) translateZ(-30vw) scale(1.4);
 //   perspective: 1000;
 // }
+
+.homepage-title {
+  display: none;
+  color: $primary-color;
+
+  @include media(">=desktop") {
+    display: inline-flex;
+  }
+}
 
 .map:focus {
   outline: none;

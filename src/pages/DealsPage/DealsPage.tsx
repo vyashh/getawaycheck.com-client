@@ -19,8 +19,8 @@ const DealsPage: React.FC = () => {
         <IonToolbar>
           <IonButtons>
             <IonBackButton />
+            <IonTitle>DEALS</IonTitle>
           </IonButtons>
-          <IonTitle>DEALS</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>

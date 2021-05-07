@@ -71,8 +71,8 @@ const ArticlesPage: React.FC = () => {
         <IonToolbar>
           <IonButtons>
             <IonBackButton />
+            <IonTitle>Articles</IonTitle>
           </IonButtons>
-          <IonTitle>Articles</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent forceOverscroll={true}>

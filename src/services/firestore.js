@@ -19,51 +19,25 @@ export const allArticles = async () => {
   return articles;
 };
 
-export const handleLikeArticle = async (article, currentUserId) => {
-  const articleExists = article.likedBy.includes(currentUserId);
+export const handleLikeArticle = async (articleId, article, currentUserId) => {
+  const articleIndex = null;
 
-  if (articleExists) {
-    console.log("like removed: ", articleExists);
-    return articlesRef.doc(article.id).update({
-      likedBy: firebase.firestore.FieldValue.arrayRemove(currentUserId),
-    });
-  }
+  getSingleArticle(articleId).then((doc) => console.log("hoi" + doc.data()));
 
-  console.log("like added: ", articleExists);
-  return articlesRef.doc(article.id).update({
-    likedBy: firebase.firestore.FieldValue.arrayUnion(currentUserId),
-  });
+  // const articleExists = article.likedBy.includes(currentUserId);
+
+  // if (articleExists) {
+  //   console.log("like removed: ", articleExists);
+  //   return articlesRef.doc(article.id).update({
+  //     likedBy: firebase.firestore.FieldValue.arrayRemove(currentUserId),
+  //   });
+  // }
+
+  // console.log("like added: ", articleExists);
+  // return articlesRef.doc(article.id).update({
+  //   likedBy: firebase.firestore.FieldValue.arrayUnion(currentUserId),
+  // });
 };
-
-// OUDE HANDLELIKEARTICLE()
-
-// const toLike = { article_id: articleId, date_time: dayjs().format() };
-
-// if (currentUserLikeData !== undefined) {
-//   currentUserLikeData.map((like) => {
-//     console.log(like.article_id === articleId);
-//     if (like.article_id === articleId) {
-//       const foundLike = currentUserLikeData.filter(
-//         (like) => like.article_id === articleId
-//       );
-//       return db
-//         .collection("users")
-//         .doc(currentUserId)
-//         .update({
-//           liked_articles: firebase.firestore.FieldValue.arrayRemove(
-//             foundLike
-//           ),
-//         });
-//     }
-//   });
-// }
-
-// return db
-//   .collection("users")
-//   .doc(currentUserId)
-//   .update({
-//     liked_articles: firebase.firestore.FieldValue.arrayUnion(toLike),
-//   });
 
 export const addTags = async (tags) => {
   const handleTags = await tagsRef.doc(tagsDocId).set({ suggestions: tags });
