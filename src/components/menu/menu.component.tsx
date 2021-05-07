@@ -71,7 +71,7 @@ const Menu: React.FC = () => {
               Deals
             </Link>
           </IonItem>
-          {currentUser ? (
+          {/* {currentUser ? (
             <IonItem className="menu__item">
               <span>
                 <PersonCircleOutline
@@ -100,7 +100,7 @@ const Menu: React.FC = () => {
                 Login
               </Link>
             </IonItem>
-          )}
+          )} */}
           {/* <IonItem className="menu__item">
             <span>
               <SettingsOutline
@@ -128,7 +128,7 @@ const Menu: React.FC = () => {
               About us
             </Link>
           </IonItem>
-          {currentUser && (
+          {/* {currentUser && (
             <IonItem className="menu__item" onClick={logoutHandler}>
               <span>
                 <LogOutOutline
@@ -140,7 +140,7 @@ const Menu: React.FC = () => {
               </span>
               Logout
             </IonItem>
-          )}
+          )} */}
         </IonList>
       </IonContent>
     </IonMenu>

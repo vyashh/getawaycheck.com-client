@@ -129,7 +129,7 @@ const DetailsLocation: React.FC<Props> = ({
               className="drawer__slider--desktop"
             >
               {data.imageUrls.map((url) => (
-                <SwiperSlide>
+                <SwiperSlide key={url.url}>
                   <img
                     src={url.url}
                     alt="thumbnail"
@@ -142,9 +142,9 @@ const DetailsLocation: React.FC<Props> = ({
 
           <div className="drawer__header">
             <h1>{data.title}</h1>
-            <div className="drawer__header__favorite">
+            {/* <div className="drawer__header__favorite">
               <LikeButton data={data} articleId={data.id} />
-            </div>
+            </div> */}
           </div>
           <p style={{ opacity: "0.5" }}>{data.address}</p>
           <div dangerouslySetInnerHTML={{ __html: data.content }} />
