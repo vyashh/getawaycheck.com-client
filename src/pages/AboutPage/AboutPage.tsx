@@ -15,8 +15,8 @@ const AboutPage: React.FC = () => {
         <IonToolbar>
           <IonButtons>
             <IonBackButton />
+            <IonTitle>About us</IonTitle>
           </IonButtons>
-          <IonTitle>About us</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
