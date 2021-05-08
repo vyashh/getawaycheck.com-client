@@ -1,40 +1,69 @@
 import "./like-button.styles.scss";
-import { HeartOutline, HeartDislikeOutline } from "react-ionicons";
+import { HeartOutline, Heart } from "react-ionicons";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../../services/store";
 import { useAuth } from "../../providers/AuthProvider";
 import { handleLikeArticle } from "../../services/firestore";
+import { db } from "../../services/firebase";
+import firebase from "firebase/app";
 
 interface Props {
   data: any;
   articleId: string;
+  getArticles: any;
+  likeStatus: boolean;
+  setLikeStatus: any;
+  likeHandler: any;
 }
 
-const LikeButton: React.FC<Props> = ({ data, articleId }) => {
+const LikeButton: React.FC<Props> = ({
+  data,
+  articleId,
+  getArticles,
+  likeStatus,
+  likeHandler,
+  setLikeStatus,
+}) => {
   const { currentUser } = useAuth();
+  const usersRef = db.collection("users");
   const { userData, userLikeData } = useContext(Context);
   const currentUserData = userData[0];
-  const [isLiked, setIsLiked] = useState(false);
   const [login, setLogin] = useState(false);
 
   const onLikeHandler = (e) => {
     e.preventDefault();
-    console.log(isLiked);
-    handleLikeArticle(articleId, data, currentUser.uid);
-    setIsLiked(!isLiked);
+    if (likeStatus) {
+      removeLike();
+      setLikeStatus(false);
+    } else {
+      addLike();
+      setLikeStatus(true);
+    }
+  };
+
+  const addLike = async () => {
+    await usersRef
+      .doc(currentUserData.uid)
+      .update({ likes: firebase.firestore.FieldValue.arrayUnion(articleId) });
+  };
+
+  const removeLike = async () => {
+    await usersRef
+      .doc(currentUserData.uid)
+      .update({ likes: firebase.firestore.FieldValue.arrayRemove(articleId) });
   };
 
   useEffect(() => {
     if (currentUser === null) {
       console.log("currentUserData is null");
 
-      setIsLiked(false);
+      setLikeStatus(false);
       setLogin(true);
-    } else {
-      console.log(data);
+      return;
     }
-  }, []);
+    console.log(currentUserData);
+  }, [data, currentUser]);
 
   switch (login) {
     case true:
@@ -52,11 +81,10 @@ const LikeButton: React.FC<Props> = ({ data, articleId }) => {
       );
 
     default:
-      console.log("login == false");
-      if (isLiked) {
+      if (likeStatus) {
         return (
-          <HeartDislikeOutline
-            color={"#ffffff"}
+          <Heart
+            color={"#ff0000"}
             title={"favorite"}
             height="2em"
             width="2em"

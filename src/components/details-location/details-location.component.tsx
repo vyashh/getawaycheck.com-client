@@ -22,92 +22,83 @@ interface Props {
   isVisible: boolean;
   setIsVisible: any;
   data: any;
-  getLocation: any;
+  getLocations: any;
 }
 
 const DetailsLocation: React.FC<Props> = ({
   isVisible,
   setIsVisible,
   data,
-  getLocation,
+  getLocations,
 }) => {
   const { currentUser } = useAuth();
+  const usersRef = db.collection("users");
   const { userData, userLikeData } = useContext(Context);
+  const [currentUserData, setCurrentUserData] = useState<any>();
   const openDrawer = useCallback(() => setIsVisible(true), []);
   const closeDrawer = useCallback(() => setIsVisible(false), []);
-  const [userLikes, setUserLikes] = userLikeData;
-  const currentUserData = userData[0];
   const [isLiked, setIsLiked] = useState(false);
   const [render, setRender] = useState(false);
-  const onLikeHandler = () => {
-    // console.log(userLikes);
-    // const toLike = { article_id: data.id, date_time: dayjs().format() };
-    handleLikeArticle(data, currentUserData.uid);
-    setIsLiked(!isLiked);
-    getLocation();
+  const [loading, setLoading] = useState(false);
+
+  const setLikeStatus = (likes: any) => {
+    setLoading(true);
+    console.log(likes.includes(data.id));
+
+    if (likes.includes(data.id)) {
+      setIsLiked(true);
+    } else {
+      setIsLiked(false);
+    }
+    setLoading(false);
   };
 
-  const renderLikeButton = (onLikeHandler) => {
-    // console.log("renderLikeButton()", currentUserData.uid);
+  const getUserData = async () => {
+    try {
+      setLoading(true);
+      await usersRef
+        .doc(currentUser.uid)
+        .get()
+        .then((doc) => {
+          const user = doc.data();
 
-    // if not liked => show unlike button
-    // if not liked AND no current user show like button but with link to login page
-    // console.log(userData[0]);
+          setCurrentUserData(user);
+          if (data !== undefined) {
+            const likes = user!.likes;
+            const userLikedArticle = likes.includes(data.id);
 
-    if (data.likedBy !== undefined) {
-      console.log("like is defined");
-      if (currentUser && data) {
-        console.log("currentUser is defined");
+            if (userLikedArticle) {
+              setIsLiked(true);
+            } else {
+              setIsLiked(false);
+            }
+          }
+        });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-        if (data.likedBy.includes(currentUser.uid)) {
-          console.log("likedBy includes user");
-
-          return (
-            <HeartDislikeOutline
-              color={"#ffffff"}
-              title={"unfavorite"}
-              height="2em"
-              width="2em"
-              onClick={onLikeHandler}
-            />
-          );
-        } else console.log("likedBy does not include user");
-
-        return (
-          <HeartOutline
-            color={"#ffffff"}
-            title={"favorite"}
-            height="2em"
-            width="2em"
-            onClick={onLikeHandler}
-          />
-        );
-      } else {
-        return (
-          <Link to="/login">
-            <HeartOutline
-              color={"#ffffff"}
-              title={"favorite"}
-              height="2em"
-              width="2em"
-            />
-          </Link>
-        );
-      }
+  const handleLikeAction = () => {
+    console.log("clicked");
+    if (isLiked) {
     }
   };
 
   useEffect(() => {
-    if (data.likedBy !== undefined) {
-      if (data.likedBy.includes(currentUserData.uid)) {
-        setIsLiked(true);
-      }
+    if (isVisible) {
+      // if drawer is opened
+      getUserData();
     }
-    setIsLiked(false);
-    console.log(currentUserData);
-  }, []);
+  }, [data]);
 
-  if (!data && !currentUserData) {
+  if (loading) {
+    return <IonLoading isOpen={true} />;
+  }
+
+  if (!data && currentUserData !== undefined) {
     return <IonLoading isOpen={true} />;
   } else {
     return (
@@ -144,7 +135,14 @@ const DetailsLocation: React.FC<Props> = ({
           <div className="drawer__header">
             <h1>{data.title}</h1>
             <div className="drawer__header__favorite">
-              <LikeButton data={data} articleId={data.id} />
+              <LikeButton
+                data={data}
+                articleId={data.id}
+                getArticles={getLocations}
+                likeStatus={isLiked}
+                setLikeStatus={setIsLiked}
+                likeHandler={handleLikeAction}
+              />
             </div>
           </div>
           <p style={{ opacity: "0.5" }}>{data.address}</p>

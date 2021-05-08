@@ -10,6 +10,7 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { db } from "../../services/firebase";
+import { useAuth } from "../../providers/AuthProvider";
 import { useState, useEffect, useContext } from "react";
 import "./ArticlesPage.styles.scss";
 import ArticleItem from "../../components/article-item/article-item.component";
@@ -19,6 +20,9 @@ import FlipMove from "react-flip-move";
 import { Context } from "../../services/store";
 
 const ArticlesPage: React.FC = () => {
+  const { currentUser } = useAuth();
+  const [userData, setUserData] = useState<any>(null);
+  const usersRef = db.collection("users");
   const articlesRef = db.collection("articles");
   const { articleData } = useContext(Context);
   const [articles, setArticles] = articleData;
@@ -33,6 +37,13 @@ const ArticlesPage: React.FC = () => {
       setArticles(items);
       setFilteredLocations(items);
     });
+  };
+
+  const getUserData = async () => {
+    await usersRef
+      .doc(currentUser.uid)
+      .get()
+      .then((doc) => setUserData(doc.data()));
   };
 
   const applyFilter = () => {
@@ -59,6 +70,9 @@ const ArticlesPage: React.FC = () => {
 
   useEffect(() => {
     getLocations();
+    if (currentUser !== null) {
+      getUserData();
+    }
   }, []);
 
   if (!filteredLocations) {
@@ -102,7 +116,7 @@ const ArticlesPage: React.FC = () => {
             isVisible={drawerVisble}
             setIsVisible={setDrawerVisible}
             data={drawerData}
-            getLocation={getLocations}
+            getLocations={getLocations}
           />
         </div>
       </IonContent>

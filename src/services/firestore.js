@@ -19,25 +19,39 @@ export const allArticles = async () => {
   return articles;
 };
 
+// export const handleLikeArticle = async (articleId, article, currentUserId) => {
+//   const articleExists = article.likedBy.includes(currentUserId);
+
+//   if (articleExists) {
+//     console.log("like removed: ", articleExists);
+//     return articlesRef.doc(article.id).update({
+//       likedBy: firebase.firestore.FieldValue.arrayRemove(currentUserId),
+//     });
+//   }
+
+//   console.log("like added: ", articleExists);
+//   return articlesRef.doc(article.id).update({
+//     likedBy: firebase.firestore.FieldValue.arrayUnion(currentUserId),
+//   });
+// };
+
 export const handleLikeArticle = async (articleId, article, currentUserId) => {
-  const articleIndex = null;
+  const articleExists = article.likedBy.includes(currentUserId);
 
-  getSingleArticle(articleId).then((doc) => console.log("hoi" + doc.data()));
+  if (articleExists) {
+    console.log("like removed: ", articleExists);
+    return articlesRef.doc(article.id).update({
+      likedBy: firebase.firestore.FieldValue.arrayRemove(currentUserId),
+    });
+  }
 
-  // const articleExists = article.likedBy.includes(currentUserId);
-
-  // if (articleExists) {
-  //   console.log("like removed: ", articleExists);
-  //   return articlesRef.doc(article.id).update({
-  //     likedBy: firebase.firestore.FieldValue.arrayRemove(currentUserId),
-  //   });
-  // }
-
-  // console.log("like added: ", articleExists);
-  // return articlesRef.doc(article.id).update({
-  //   likedBy: firebase.firestore.FieldValue.arrayUnion(currentUserId),
-  // });
+  console.log("like added: ", articleExists);
+  return articlesRef.doc(article.id).update({
+    likedBy: firebase.firestore.FieldValue.arrayUnion(currentUserId),
+  });
 };
+
+
 
 export const addTags = async (tags) => {
   const handleTags = await tagsRef.doc(tagsDocId).set({ suggestions: tags });

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { db } from "./firebase";
-import { getTags } from "./firestore";
+import { useAuth } from "../providers/AuthProvider";
 
 export const Context = React.createContext();
 

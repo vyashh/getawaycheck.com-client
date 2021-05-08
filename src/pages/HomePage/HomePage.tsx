@@ -6,6 +6,7 @@ import React, {
   useContext,
 } from "react";
 import { db } from "../../services/firebase";
+import { useAuth } from "../../providers/AuthProvider";
 import {
   IonContent,
   IonLoading,
@@ -41,14 +42,18 @@ const options = {
 };
 
 const HomePage: React.FC = () => {
-  const { articleData } = useContext(Context);
+  const { articleData, userData } = useContext(Context);
   const articlesRef = db.collection("articles");
+  const usersRef = db.collection("users");
+  const { currentUser } = useAuth();
+  const [currentUserData, setCurrentUserData] = userData;
   const mapRef = useRef();
   const [center, setCenter] = useState({ lat: 52.377956, lng: 4.89707 });
   const [locations, setLocations] = useState<any>([]);
   const [articles, setArticles] = articleData;
   const [filteredLocations, setFilteredLocations] = useState(locations);
   const [filter, setFilter]: any[] = useState(["drinks", "hotel", "food"]);
+  const [loading, setLoading] = useState(false);
 
   const [drawerVisble, setDrawerVisible] = useState(false);
   const [drawerData, setDrawerData] = useState<any>([null]);
@@ -62,8 +67,8 @@ const HomePage: React.FC = () => {
     mapRef.current = map; // by doing this the map can be used anywhere in the code and not be rerendered
   }, []);
 
-  const getLocations = () => {
-    articlesRef.get().then((snapshot) => {
+  const getLocations = async () => {
+    await articlesRef.get().then((snapshot) => {
       const items = snapshot.docs.map((doc) => doc.data());
       setLocations(items);
       setArticles(items);
@@ -94,8 +99,6 @@ const HomePage: React.FC = () => {
 
   useEffect(() => {
     getLocations();
-
-    // getLocations();
   }, []);
 
   if (loadError) {
@@ -103,6 +106,10 @@ const HomePage: React.FC = () => {
   }
 
   if (!isLoaded) {
+    return <IonLoading isOpen={true} />;
+  }
+
+  if (loading) {
     return <IonLoading isOpen={true} />;
   }
 
@@ -125,7 +132,7 @@ const HomePage: React.FC = () => {
           isVisible={drawerVisble}
           setIsVisible={setDrawerVisible}
           data={drawerData}
-          getLocation={getLocations}
+          getLocations={getLocations}
         />
         {/* <SearchBar locations={locations} /> */}
         <GoogleMap
