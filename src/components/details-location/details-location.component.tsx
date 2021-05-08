@@ -15,14 +15,15 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.min.css";
 import SwiperCore, { Pagination } from "swiper/core";
+
+SwiperCore.use([Pagination]);
+
 interface Props {
   isVisible: boolean;
   setIsVisible: any;
   data: any;
   getLocation: any;
 }
-
-SwiperCore.use([Pagination]);
 
 const DetailsLocation: React.FC<Props> = ({
   isVisible,
