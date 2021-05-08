@@ -83,16 +83,20 @@ const ArticlesPage: React.FC = () => {
           </div>
           <hr className="main-hr" />
           {/* <FlipMove> */}
-          {filteredLocations.map((article: any) => (
-            <div key={article.address}>
-              <ArticleItem
-                data={article}
-                setDrawerVisible={setDrawerVisible}
-                setDrawerData={setDrawerData}
-              />
-              <hr className="side-hr" />
-            </div>
-          ))}
+          {filteredLocations.map((article: any) => {
+            if (article.isPublic) {
+              return (
+                <div key={article.address}>
+                  <ArticleItem
+                    data={article}
+                    setDrawerVisible={setDrawerVisible}
+                    setDrawerData={setDrawerData}
+                  />
+                  <hr className="side-hr" />
+                </div>
+              );
+            }
+          })}
           {/* </FlipMove> */}
           <DetailsLocation
             isVisible={drawerVisble}
