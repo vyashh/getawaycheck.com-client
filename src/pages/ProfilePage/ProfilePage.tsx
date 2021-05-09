@@ -17,6 +17,7 @@ import { NavContext } from "@ionic/react";
 import { db } from "../../services/firebase";
 import ArticleItem from "../../components/article-item/article-item.component";
 import DetailsLocation from "../../components/details-location/details-location.component";
+import firebase from "firebase/app";
 
 const ProfilePage: React.FC = () => {
   const { navigate } = useContext(NavContext);
@@ -28,8 +29,10 @@ const ProfilePage: React.FC = () => {
   const [articles, setArticles] = useState<any>(null);
   const [drawerVisble, setDrawerVisible] = useState(false);
   const [drawerData, setDrawerData] = useState<any>([null]);
+  const [loading, setLoading] = useState(false);
 
   const getLikedArticles = async () => {
+    setLoading(true);
     await usersRef
       .doc(currentUser.uid)
       .get()
@@ -37,24 +40,16 @@ const ProfilePage: React.FC = () => {
         const user = doc.data();
         setCurrentUserData(user);
         setLikedArticles(user!.likes);
-      })
-      .then(() => {
-        if (likedArticles != null) {
-          likedArticles.map((articleId) => {
-            articlesRef
-              .doc(articleId)
-              .get()
-              .then((doc) => {
-                console.log(doc.data());
-              });
+        console.log("setLikedArticles()");
+        articlesRef
+          .where(firebase.firestore.FieldPath.documentId(), "in", user!.likes)
+          .get()
+          .then((res) => {
+            const articles = res.docs.map((doc) => doc.data());
+            setArticles(articles);
           });
-        }
+        setLoading(false);
       });
-
-    await articlesRef.get().then((item) => {
-      const items = item.docs.map((doc) => doc.data());
-      setArticles(items);
-    });
   };
 
   useEffect(() => {
@@ -65,7 +60,7 @@ const ProfilePage: React.FC = () => {
     return <Redirect to="/login" />;
   }
 
-  if (!articles) {
+  if (loading) {
     return <IonLoading isOpen={true} />;
   }
 
@@ -81,15 +76,17 @@ const ProfilePage: React.FC = () => {
       </IonHeader>
       <IonContent>
         <div className="profile-page">
-          {articles.map((article) => {
-            return (
-              <ArticleItem
-                data={article}
-                setDrawerVisible={setDrawerVisible}
-                setDrawerData={setDrawerData}
-              />
-            );
-          })}
+          {articles &&
+            articles.map((article) => {
+              return (
+                <ArticleItem
+                  key={article.id}
+                  data={article}
+                  setDrawerVisible={setDrawerVisible}
+                  setDrawerData={setDrawerData}
+                />
+              );
+            })}
           <DetailsLocation
             isVisible={drawerVisble}
             setIsVisible={setDrawerVisible}
