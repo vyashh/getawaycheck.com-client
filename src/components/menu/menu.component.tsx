@@ -81,7 +81,12 @@ const Menu: React.FC = () => {
                   width="1em"
                 />
               </span>
-              Profile
+              <Link
+                to="/profile"
+                onClick={async () => await menuController.toggle()}
+              >
+                Profile
+              </Link>
             </IonItem>
           ) : (
             <IonItem className="menu__item">

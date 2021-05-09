@@ -22,14 +22,12 @@ interface Props {
   isVisible: boolean;
   setIsVisible: any;
   data: any;
-  getLocations: any;
 }
 
 const DetailsLocation: React.FC<Props> = ({
   isVisible,
   setIsVisible,
   data,
-  getLocations,
 }) => {
   const { currentUser } = useAuth();
   const usersRef = db.collection("users");
@@ -43,7 +41,6 @@ const DetailsLocation: React.FC<Props> = ({
 
   const setLikeStatus = (likes: any) => {
     setLoading(true);
-    console.log(likes.includes(data.id));
 
     if (likes.includes(data.id)) {
       setIsLiked(true);
@@ -138,7 +135,6 @@ const DetailsLocation: React.FC<Props> = ({
               <LikeButton
                 data={data}
                 articleId={data.id}
-                getArticles={getLocations}
                 likeStatus={isLiked}
                 setLikeStatus={setIsLiked}
                 likeHandler={handleLikeAction}

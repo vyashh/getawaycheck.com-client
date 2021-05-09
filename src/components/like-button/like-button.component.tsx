@@ -11,7 +11,6 @@ import firebase from "firebase/app";
 interface Props {
   data: any;
   articleId: string;
-  getArticles: any;
   likeStatus: boolean;
   setLikeStatus: any;
   likeHandler: any;
@@ -20,7 +19,6 @@ interface Props {
 const LikeButton: React.FC<Props> = ({
   data,
   articleId,
-  getArticles,
   likeStatus,
   likeHandler,
   setLikeStatus,

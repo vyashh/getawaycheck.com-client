@@ -7,6 +7,7 @@ import { IonReactRouter } from "@ionic/react-router";
 import HomePage from "./pages/HomePage/HomePage";
 import AboutPage from "./pages/AboutPage/AboutPage";
 import DealsPage from "./pages/DealsPage/DealsPage";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import ArticlesPage from "./pages/ArticlesPage/ArticlesPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import { AuthProvider } from "./providers/AuthProvider";
@@ -28,6 +29,9 @@ const App: React.FC = () => {
             </Route>
             <Route path="/deals">
               <DealsPage />
+            </Route>
+            <Route path="/profile">
+              <ProfilePage />
             </Route>
             <Route path="/articles">
               <ArticlesPage />

@@ -132,7 +132,6 @@ const HomePage: React.FC = () => {
           isVisible={drawerVisble}
           setIsVisible={setDrawerVisible}
           data={drawerData}
-          getLocations={getLocations}
         />
         {/* <SearchBar locations={locations} /> */}
         <GoogleMap
