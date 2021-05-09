@@ -48,6 +48,11 @@ div[class^="rbd-"][class*="-dr"] {
     align-items: center;
     align-content: stretch;
   }
+
+  &__likes p {
+    // font-size: 0.8em;
+    opacity: 0.8;
+  }
 }
 
 .swiper-pagination-bullet-active {

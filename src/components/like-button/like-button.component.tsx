@@ -14,6 +14,8 @@ interface Props {
   likeStatus: boolean;
   setLikeStatus: any;
   likeHandler: any;
+  likes: any;
+  setLikes: any;
 }
 
 const LikeButton: React.FC<Props> = ({
@@ -22,12 +24,17 @@ const LikeButton: React.FC<Props> = ({
   likeStatus,
   likeHandler,
   setLikeStatus,
+  likes,
+  setLikes,
 }) => {
   const { currentUser } = useAuth();
+  const articlesRef = db.collection("articles").doc(articleId);
   const usersRef = db.collection("users");
   const { userData, userLikeData } = useContext(Context);
   const currentUserData = userData[0];
   const [login, setLogin] = useState(false);
+  const increment = firebase.firestore.FieldValue.increment(1);
+  const decrement = firebase.firestore.FieldValue.increment(-1);
 
   const onLikeHandler = (e) => {
     e.preventDefault();
@@ -44,12 +51,17 @@ const LikeButton: React.FC<Props> = ({
     await usersRef
       .doc(currentUserData.uid)
       .update({ likes: firebase.firestore.FieldValue.arrayUnion(articleId) });
+    await articlesRef.update({ likes: increment });
+    console.log(likes);
+    setLikes(likes + 1);
   };
 
   const removeLike = async () => {
     await usersRef
       .doc(currentUserData.uid)
       .update({ likes: firebase.firestore.FieldValue.arrayRemove(articleId) });
+    await articlesRef.update({ likes: decrement });
+    setLikes(likes - 1);
   };
 
   useEffect(() => {

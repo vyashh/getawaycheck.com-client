@@ -38,6 +38,7 @@ const DetailsLocation: React.FC<Props> = ({
   const [isLiked, setIsLiked] = useState(false);
   const [render, setRender] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [likes, setLikes] = useState(0);
 
   const setLikeStatus = (likes: any) => {
     setLoading(true);
@@ -88,6 +89,7 @@ const DetailsLocation: React.FC<Props> = ({
     if (isVisible) {
       // if drawer is opened
       getUserData();
+      setLikes(data.likes);
     }
   }, [data]);
 
@@ -138,8 +140,17 @@ const DetailsLocation: React.FC<Props> = ({
                 likeStatus={isLiked}
                 setLikeStatus={setIsLiked}
                 likeHandler={handleLikeAction}
+                likes={likes}
+                setLikes={setLikes}
               />
             </div>
+          </div>
+          <div className="drawer__likes">
+            {likes > 0 ? (
+              <p>{likes} person liked this post</p>
+            ) : (
+              <p>{likes} people liked this post</p>
+            )}
           </div>
           <p style={{ opacity: "0.5" }}>{data.address}</p>
           <div dangerouslySetInnerHTML={{ __html: data.content }} />

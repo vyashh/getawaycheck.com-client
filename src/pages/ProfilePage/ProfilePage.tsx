@@ -12,11 +12,13 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import "./ProfilePage.scss";
+import "../ArticlesPage/ArticlesPage.scss";
 import { Redirect } from "react-router-dom";
 import { NavContext } from "@ionic/react";
 import { db } from "../../services/firebase";
 import ArticleItem from "../../components/article-item/article-item.component";
 import DetailsLocation from "../../components/details-location/details-location.component";
+import EmptyImage from "../../assets/img/empty.svg";
 import firebase from "firebase/app";
 
 const ProfilePage: React.FC = () => {
@@ -40,14 +42,17 @@ const ProfilePage: React.FC = () => {
         const user = doc.data();
         setCurrentUserData(user);
         setLikedArticles(user!.likes);
-        console.log("setLikedArticles()");
-        articlesRef
-          .where(firebase.firestore.FieldPath.documentId(), "in", user!.likes)
-          .get()
-          .then((res) => {
-            const articles = res.docs.map((doc) => doc.data());
-            setArticles(articles);
-          });
+        if (user!.likes.length > 0) {
+          articlesRef
+            .where(firebase.firestore.FieldPath.documentId(), "in", user!.likes)
+            .get()
+            .then((res) => {
+              const articles = res.docs.map((doc) => doc.data());
+              setArticles(articles);
+            });
+        } else {
+          setArticles(null);
+        }
         setLoading(false);
       });
   };
@@ -56,12 +61,11 @@ const ProfilePage: React.FC = () => {
     getLikedArticles();
   }, []);
 
-  if (!currentUser) {
-    return <Redirect to="/login" />;
-  }
-
   if (loading) {
     return <IonLoading isOpen={true} />;
+  }
+  if (!currentUser) {
+    return <Redirect to="/login" />;
   }
 
   return (
@@ -76,17 +80,40 @@ const ProfilePage: React.FC = () => {
       </IonHeader>
       <IonContent>
         <div className="profile-page">
-          {articles &&
+          {articles && (
+            <div>
+              <div className="profile-page__header">
+                <h4>Liked Articles</h4>
+              </div>
+              <hr className="main-hr" />
+            </div>
+          )}
+
+          {articles ? (
             articles.map((article) => {
-              return (
-                <ArticleItem
-                  key={article.id}
-                  data={article}
-                  setDrawerVisible={setDrawerVisible}
-                  setDrawerData={setDrawerData}
-                />
-              );
-            })}
+              if (article.isPublic) {
+                return (
+                  <div key={article.id}>
+                    <ArticleItem
+                      data={article}
+                      setDrawerVisible={setDrawerVisible}
+                      setDrawerData={setDrawerData}
+                    />
+                    <hr className="side-hr" />
+                  </div>
+                );
+              }
+            })
+          ) : (
+            <div className="profile-page__empty">
+              <div>
+                <img src={EmptyImage} alt="no likes" />
+              </div>
+              <div>
+                <p>Hmmm... No liked articles yet!</p>
+              </div>
+            </div>
+          )}
           <DetailsLocation
             isVisible={drawerVisble}
             setIsVisible={setDrawerVisible}
