@@ -116,7 +116,6 @@ const ArticlesPage: React.FC = () => {
             isVisible={drawerVisble}
             setIsVisible={setDrawerVisible}
             data={drawerData}
-            getLocations={getLocations}
           />
         </div>
       </IonContent>
