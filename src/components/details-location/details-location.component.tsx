@@ -146,7 +146,7 @@ const DetailsLocation: React.FC<Props> = ({
             </div>
           </div>
           <div className="drawer__likes">
-            {likes > 1 ? (
+            {likes > 0 ? (
               <p>{likes} person liked this post</p>
             ) : (
               <p>{likes} people liked this post</p>
