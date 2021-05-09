@@ -12,6 +12,7 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import "./ProfilePage.scss";
+import "../ArticlesPage/ArticlesPage.scss";
 import { Redirect } from "react-router-dom";
 import { NavContext } from "@ionic/react";
 import { db } from "../../services/firebase";
@@ -40,14 +41,17 @@ const ProfilePage: React.FC = () => {
         const user = doc.data();
         setCurrentUserData(user);
         setLikedArticles(user!.likes);
-        console.log("setLikedArticles()");
-        articlesRef
-          .where(firebase.firestore.FieldPath.documentId(), "in", user!.likes)
-          .get()
-          .then((res) => {
-            const articles = res.docs.map((doc) => doc.data());
-            setArticles(articles);
-          });
+        if (user!.likes.length > 0) {
+          articlesRef
+            .where(firebase.firestore.FieldPath.documentId(), "in", user!.likes)
+            .get()
+            .then((res) => {
+              const articles = res.docs.map((doc) => doc.data());
+              setArticles(articles);
+            });
+        } else {
+          setArticles(null);
+        }
         setLoading(false);
       });
   };
@@ -56,12 +60,11 @@ const ProfilePage: React.FC = () => {
     getLikedArticles();
   }, []);
 
-  if (!currentUser) {
-    return <Redirect to="/login" />;
-  }
-
   if (loading) {
     return <IonLoading isOpen={true} />;
+  }
+  if (!currentUser) {
+    return <Redirect to="/login" />;
   }
 
   return (
@@ -76,17 +79,29 @@ const ProfilePage: React.FC = () => {
       </IonHeader>
       <IonContent>
         <div className="profile-page">
-          {articles &&
+          <div className="profile-page__header">
+            <h4>Liked Articles</h4>
+          </div>
+          <hr className="main-hr" />
+
+          {articles ? (
             articles.map((article) => {
-              return (
-                <ArticleItem
-                  key={article.id}
-                  data={article}
-                  setDrawerVisible={setDrawerVisible}
-                  setDrawerData={setDrawerData}
-                />
-              );
-            })}
+              if (article.isPublic) {
+                return (
+                  <div key={article.id}>
+                    <ArticleItem
+                      data={article}
+                      setDrawerVisible={setDrawerVisible}
+                      setDrawerData={setDrawerData}
+                    />
+                    <hr className="side-hr" />
+                  </div>
+                );
+              }
+            })
+          ) : (
+            <h2>Empty</h2>
+          )}
           <DetailsLocation
             isVisible={drawerVisble}
             setIsVisible={setDrawerVisible}

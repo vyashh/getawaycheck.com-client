@@ -12,7 +12,7 @@ import {
 import { db } from "../../services/firebase";
 import { useAuth } from "../../providers/AuthProvider";
 import { useState, useEffect, useContext } from "react";
-import "./ArticlesPage.styles.scss";
+import "./ArticlesPage.scss";
 import ArticleItem from "../../components/article-item/article-item.component";
 import CategorySquare from "../../components/category_square/category_square.component";
 import DetailsLocation from "../../components/details-location/details-location.component";
