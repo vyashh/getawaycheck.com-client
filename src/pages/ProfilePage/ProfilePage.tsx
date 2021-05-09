@@ -18,6 +18,7 @@ import { NavContext } from "@ionic/react";
 import { db } from "../../services/firebase";
 import ArticleItem from "../../components/article-item/article-item.component";
 import DetailsLocation from "../../components/details-location/details-location.component";
+import EmptyImage from "../../assets/img/empty.svg";
 import firebase from "firebase/app";
 
 const ProfilePage: React.FC = () => {
@@ -79,10 +80,14 @@ const ProfilePage: React.FC = () => {
       </IonHeader>
       <IonContent>
         <div className="profile-page">
-          <div className="profile-page__header">
-            <h4>Liked Articles</h4>
-          </div>
-          <hr className="main-hr" />
+          {articles && (
+            <div>
+              <div className="profile-page__header">
+                <h4>Liked Articles</h4>
+              </div>
+              <hr className="main-hr" />
+            </div>
+          )}
 
           {articles ? (
             articles.map((article) => {
@@ -100,7 +105,14 @@ const ProfilePage: React.FC = () => {
               }
             })
           ) : (
-            <h2>Empty</h2>
+            <div className="profile-page__empty">
+              <div>
+                <img src={EmptyImage} alt="no likes" />
+              </div>
+              <div>
+                <p>Hmmm... No liked articles yet!</p>
+              </div>
+            </div>
           )}
           <DetailsLocation
             isVisible={drawerVisble}
