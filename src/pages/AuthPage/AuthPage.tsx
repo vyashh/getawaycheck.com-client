@@ -43,7 +43,9 @@ const AuthPage: React.FC = () => {
                 )}
               </div>
             </div>
-            <Button type="primary" width="15em" text="REGISTER" />
+            <div onClick={toRegister}>
+              <Button type="primary" width="15em" text="REGISTER" />
+            </div>
             <div onClick={toLogin}>
               <Button type="secondary" width="15em" text="LOGIN" />
             </div>

@@ -22,8 +22,7 @@ import { useAuth } from "../../providers/AuthProvider";
 
 const Menu: React.FC = () => {
   const { userData } = useContext(Context);
-  const { logout } = useAuth();
-  const [currentUser, setCurrentUser] = userData;
+  const { logout, currentUser } = useAuth();
 
   const logoutHandler = () => {
     logout();

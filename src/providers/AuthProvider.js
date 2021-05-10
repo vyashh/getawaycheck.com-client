@@ -22,7 +22,7 @@ export function AuthProvider({ children }) {
     return auth.createUserWithEmailAndPassword(email, password);
   }
 
-  function login(email, password) {
+  function login(email, password, firstName, lastName) {
     return auth.signInWithEmailAndPassword(email, password);
   }
 
@@ -49,7 +49,6 @@ export function AuthProvider({ children }) {
       .then((res) => {
         const userData = res.data();
         setCurrentUserData(userData);
-        setCurrentUserLikeData(userData.liked_articles);
       });
   }
 
@@ -58,6 +57,7 @@ export function AuthProvider({ children }) {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
       setLoading(false);
+      console.log(user);
       getUserData(user.uid);
     });
 
