@@ -45,15 +45,19 @@ const HomePage: React.FC = () => {
   const { articleData, userData } = useContext(Context);
   const articlesRef = db.collection("articles");
   const usersRef = db.collection("users");
+  const keywordsRef = db.collection("keywords").doc("keywords");
   const { currentUser } = useAuth();
   const [currentUserData, setCurrentUserData] = userData;
   const mapRef = useRef();
   const [center, setCenter] = useState({ lat: 52.377956, lng: 4.89707 });
   const [locations, setLocations] = useState<any>([]);
+  const [searchedLocations, setSearchedLocations] = useState<any>([]);
   const [articles, setArticles] = articleData;
   const [filteredLocations, setFilteredLocations] = useState(locations);
   const [filter, setFilter]: any[] = useState(["drinks", "hotel", "food"]);
   const [loading, setLoading] = useState(false);
+  const [keywords, setKeywords] = useState<any>([]);
+  const [render, setRender] = useState(true);
 
   const [drawerVisble, setDrawerVisible] = useState(false);
   const [drawerData, setDrawerData] = useState<any>([null]);
@@ -97,8 +101,34 @@ const HomePage: React.FC = () => {
     applyFilter();
   };
 
+  const searchLocations = (searchTag) => {
+    locations.map((location) => {
+      location.tags.map((locationTag) => {
+        if (searchTag === locationTag.text) {
+          const result = searchedLocations;
+          if (!result.includes(location)) {
+            result.push(location);
+            setSearchedLocations(result);
+            setRender(!render);
+          }
+        }
+      });
+    });
+    setSearchedLocations(searchedLocations);
+    console.log(searchedLocations);
+  };
+
+  const clearSearchLocations = () => {
+    setSearchedLocations([]);
+  };
+
+  const getTags = async () => {
+    keywordsRef.get().then((doc) => setKeywords(doc.data()?.suggestions));
+  };
+
   useEffect(() => {
     getLocations();
+    getTags();
   }, []);
 
   if (loadError) {
@@ -133,7 +163,12 @@ const HomePage: React.FC = () => {
           setIsVisible={setDrawerVisible}
           data={drawerData}
         />
-        {/* <SearchBar locations={locations} /> */}
+        <SearchBar
+          locations={locations}
+          keywords={keywords}
+          searchLocations={searchLocations}
+          clearSearchLocations={clearSearchLocations}
+        />
         <GoogleMap
           mapContainerClassName="map"
           mapContainerStyle={mapContainerStyle}
@@ -142,18 +177,31 @@ const HomePage: React.FC = () => {
           options={options}
           onLoad={onMapLoad}
         >
-          {filteredLocations.map((location: any) => {
-            if (location.isPublic) {
-              return (
-                <MapMarker
-                  key={location.id}
-                  location={location}
-                  setDrawerVisible={setDrawerVisible}
-                  setDrawerData={setDrawerData}
-                />
-              );
-            }
-          })}
+          {searchedLocations.length > 0
+            ? searchedLocations.map((location: any) => {
+                if (location.isPublic) {
+                  return (
+                    <MapMarker
+                      key={location.id}
+                      location={location}
+                      setDrawerVisible={setDrawerVisible}
+                      setDrawerData={setDrawerData}
+                    />
+                  );
+                }
+              })
+            : filteredLocations.map((location: any) => {
+                if (location.isPublic) {
+                  return (
+                    <MapMarker
+                      key={location.id}
+                      location={location}
+                      setDrawerVisible={setDrawerVisible}
+                      setDrawerData={setDrawerData}
+                    />
+                  );
+                }
+              })}
         </GoogleMap>
       </IonContent>
     </IonPage>

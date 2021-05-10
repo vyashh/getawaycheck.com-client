@@ -1,0 +1,39 @@
+.search-bar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: stretch;
+  background-color: #16181d;
+  width: 100%;
+  height: 3.5em;
+  position: absolute;
+  z-index: 10;
+  bottom: 0;
+  padding: 0 1em 0 1em;
+  font-family: "Roboto";
+
+  &__bar {
+    background-color: #16181d;
+    border: none;
+  }
+
+  &__bar:focus {
+    outline: none;
+  }
+
+  &__bar::placeholder {
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  &__suggestions {
+    color: black;
+  }
+}
+
+[data-reach-combobox-popover] {
+  border: none;
+}
