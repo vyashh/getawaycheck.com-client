@@ -26,12 +26,14 @@ interface Props {
   locations: any[];
   keywords: any[];
   searchLocations: (searchTag: string) => void;
+  clearSearchLocations: any;
 }
 
 const SearchBar: React.FC<Props> = ({
   locations,
   keywords,
   searchLocations,
+  clearSearchLocations,
 }) => {
   const visible = {
     opacity: 1,
@@ -95,7 +97,11 @@ const SearchBar: React.FC<Props> = ({
           </ComboboxPopover>
         </Combobox>
       </div>
-      <div className="search-bar__clear" style={clearStyling}>
+      <div
+        className="search-bar__clear"
+        style={clearStyling}
+        onClick={clearSearchLocations}
+      >
         <CloseOutline
           color={"#ffffff"}
           height="1.5em"

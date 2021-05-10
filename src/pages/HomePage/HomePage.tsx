@@ -41,8 +41,6 @@ const options = {
   zoomControl: true,
 };
 
-const useForceUpdate = () => useState<any>()[1];
-
 const HomePage: React.FC = () => {
   const { articleData, userData } = useContext(Context);
   const articlesRef = db.collection("articles");
@@ -59,7 +57,7 @@ const HomePage: React.FC = () => {
   const [filter, setFilter]: any[] = useState(["drinks", "hotel", "food"]);
   const [loading, setLoading] = useState(false);
   const [keywords, setKeywords] = useState<any>([]);
-  const forceUpdate = useForceUpdate();
+  const [render, setRender] = useState(true);
 
   const [drawerVisble, setDrawerVisible] = useState(false);
   const [drawerData, setDrawerData] = useState<any>([null]);
@@ -108,18 +106,20 @@ const HomePage: React.FC = () => {
       location.tags.map((locationTag) => {
         if (searchTag === locationTag.text) {
           const result = searchedLocations;
-          console.log(result.length);
-
-          result.push(location);
-          console.log(result.length);
-
-          setSearchedLocations(result);
-          forceUpdate(1);
+          if (!result.includes(location)) {
+            result.push(location);
+            setSearchedLocations(result);
+            setRender(!render);
+          }
         }
       });
     });
     setSearchedLocations(searchedLocations);
     console.log(searchedLocations);
+  };
+
+  const clearSearchLocations = () => {
+    setSearchedLocations([]);
   };
 
   const getTags = async () => {
@@ -167,6 +167,7 @@ const HomePage: React.FC = () => {
           locations={locations}
           keywords={keywords}
           searchLocations={searchLocations}
+          clearSearchLocations={clearSearchLocations}
         />
         <GoogleMap
           mapContainerClassName="map"
