@@ -84,7 +84,7 @@ const SearchBar: React.FC<Props> = ({
                     value={`${result.text}`}
                     onClick={() => {
                       searchLocations(result.text);
-                      handleClear();
+                      // handleClear();
                     }}
                   />
                 ))}

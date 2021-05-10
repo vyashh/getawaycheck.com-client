@@ -99,10 +99,10 @@ const Menu: React.FC = () => {
                 />
               </span>
               <Link
-                to="/login"
+                to="/auth"
                 onClick={async () => await menuController.toggle()}
               >
-                Login
+                Profile
               </Link>
             </IonItem>
           )}

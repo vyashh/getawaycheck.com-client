@@ -10,6 +10,7 @@ import DealsPage from "./pages/DealsPage/DealsPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import ArticlesPage from "./pages/ArticlesPage/ArticlesPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import AuthPage from "./pages/AuthPage/AuthPage";
 import { AuthProvider } from "./providers/AuthProvider";
 import Menu from "./components/menu/menu.component";
 
@@ -36,7 +37,10 @@ const App: React.FC = () => {
             <Route path="/articles">
               <ArticlesPage />
             </Route>
-            <Route path="/login">
+            <Route exact path="/auth">
+              <AuthPage />
+            </Route>
+            <Route path="/auth/login">
               <LoginPage />
             </Route>
           </IonRouterOutlet>
