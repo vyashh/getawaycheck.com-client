@@ -19,12 +19,14 @@
 //   perspective: 1000;
 // }
 
-.homepage-title {
-  display: none;
-  color: $primary-color;
+.homepage {
+  &-title {
+    display: none;
+    color: $primary-color;
 
-  @include media(">=desktop") {
-    display: inline-flex;
+    @include media(">=desktop") {
+      display: inline-flex;
+    }
   }
 }
 

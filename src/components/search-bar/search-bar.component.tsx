@@ -5,7 +5,7 @@ import {
   IonItem,
   IonTextarea,
 } from "@ionic/react";
-import React, { useState, createRef } from "react";
+import React, { useState, createRef, useEffect } from "react";
 import {
   Combobox,
   ComboboxInput,
@@ -14,123 +14,94 @@ import {
   ComboboxOption,
   ComboboxOptionText,
 } from "@reach/combobox";
-import "./search-bar.styles.scss";
+import "./search-bar.new.styles.scss";
 import { matchSorter } from "match-sorter";
 import usePlacesAutoComplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
-import { SearchOutline, CloseOutline } from "react-ionicons";
+import { SearchOutline, CloseOutline, Close } from "react-ionicons";
 
 interface Props {
   locations: any[];
+  keywords: any[];
+  searchLocations: (searchTag: string) => void;
 }
 
-const SearchBar: React.FC<Props> = ({ locations }) => {
-  // const {
-  //   ready,
-  //   value,
-  //   suggestions: { status, data },
-  //   setValue,
-  //   clearSuggestions,
-  // } = usePlacesAutoComplete({
-  //   requestOptions: {
-  //     location: { lat: () => 52.377956, lng: () => 4.89707 },
-  //     radius: 200 * 1000, // meters
-  //   },
-  // });
+const SearchBar: React.FC<Props> = ({
+  locations,
+  keywords,
+  searchLocations,
+}) => {
+  const visible = {
+    opacity: 1,
+  };
+
+  const invisible = {
+    opacity: 0,
+  };
 
   const searchTerm = (term: any) => {
     return term === ""
       ? null
-      : matchSorter(locations, term, {
-          keys: [(location) => location.tags],
+      : matchSorter(keywords, term, {
+          keys: [(tag) => tag.text],
         });
   };
 
   const [search, setSearch] = useState("");
   const searchRef = createRef();
   const searchResults = searchTerm(search);
-
+  const clearStyling = search.length > 0 ? visible : invisible;
   const handleChange = (event: any) => setSearch(event.target.value);
   const handleClear = () => setSearch("");
+  const [tags, setTags] = useState<any>([]);
+
+  useEffect(() => {
+    keywords.map((tag) => {
+      setTags(tags.push(tag.text));
+    });
+  }, []);
 
   return (
-    <div className="search-bar-container">
-      <div className="search-bar">
-        <Combobox className="search-bar__bar">
-          <div className="bar">
-            <div className="bar__icon--search">
-              <SearchOutline
-                color={"#00000"}
-                title="search icon"
-                height="2em"
-                width="2em"
-              />
-            </div>
-            <div className="bar__bar">
-              <ComboboxInput
-                value={search}
-                placeholder="Search here"
-                onChange={(event: any) => handleChange(event)}
-              />
-            </div>
-            <div className="bar__icon--close">
-              {search && (
-                <CloseOutline
-                  onClick={handleClear}
-                  color={"#00000"}
-                  title="search icon"
-                  height="2em"
-                  width="2em"
-                />
-              )}
-            </div>
-          </div>
-          {searchResults && (
-            <ComboboxPopover style={{ left: "0", width: "100%" }}>
-              {searchResults.length > 0 ? (
+    <div className="search-bar">
+      <SearchOutline color={"#ffffff"} height="1.5em" width="1.5em" />{" "}
+      <div>
+        <Combobox>
+          <ComboboxInput
+            value={search}
+            placeholder="Search here"
+            className="search-bar__bar"
+            onChange={(event: any) => handleChange(event)}
+          />
+          <ComboboxPopover className="search-bar__suggestions">
+            <ComboboxList style={{ width: "100vw" }}>
+              {searchResults && searchResults!.length > 0 ? (
                 <ComboboxList>
-                  {searchResults.map((location) => {
-                    return location.tags.map((tag: string) => {
-                      return (
-                        <ComboboxOption
-                          className="suggestions__item"
-                          value={`🔍${tag}`}
-                          onClick={() => setSearch(tag)}
-                        />
-                      );
-                    });
-                  })}
-                  {searchResults.map((location) => {
-                    return (
-                      <ComboboxOption
-                        style={{ color: "black" }}
-                        key={location.id}
-                        value={`📍 ${location.address}`}
-                      />
-                    );
-                  })}
+                  {searchResults!.slice(0, 3).map((result, index) => (
+                    <ComboboxOption
+                      key={index}
+                      value={`${result.text}`}
+                      onClick={() => searchLocations(result.text)}
+                    />
+                  ))}
                 </ComboboxList>
               ) : (
-                <div>
-                  <p
-                    style={{
-                      padding: 10,
-                      textAlign: "center",
-                      color: "black",
-                    }}
-                  >
-                    No results 😞
-                  </p>
-                </div>
+                <span style={{ display: "block", margin: 8 }}>
+                  No results found
+                </span>
               )}
-            </ComboboxPopover>
-          )}
+            </ComboboxList>
+          </ComboboxPopover>
         </Combobox>
-        {/* <IonButton className="search-button__button" color="primary">
-          Search
-        </IonButton> */}
+      </div>
+      <div className="search-bar__clear" style={clearStyling}>
+        <CloseOutline
+          color={"#ffffff"}
+          height="1.5em"
+          width="1.5em"
+          onClick={handleClear}
+        />
       </div>
     </div>
   );
