@@ -1,10 +1,3 @@
-import {
-  IonButton,
-  IonIcon,
-  IonInput,
-  IonItem,
-  IonTextarea,
-} from "@ionic/react";
 import React, { useState, createRef, useEffect } from "react";
 import {
   Combobox,
@@ -14,13 +7,13 @@ import {
   ComboboxOption,
   ComboboxOptionText,
 } from "@reach/combobox";
-import "./search-bar.new.styles.scss";
+import "./search-bar.styles.scss";
 import { matchSorter } from "match-sorter";
 import usePlacesAutoComplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
-import { SearchOutline, CloseOutline, Close } from "react-ionicons";
+import { SearchOutline, CloseOutline } from "react-ionicons";
 
 interface Props {
   locations: any[];

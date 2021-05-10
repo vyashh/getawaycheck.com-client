@@ -72,7 +72,6 @@ const LikeButton: React.FC<Props> = ({
       setLogin(true);
       return;
     }
-    console.log(currentUserData);
   }, [data, currentUser]);
 
   switch (login) {

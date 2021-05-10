@@ -120,7 +120,7 @@ const DetailsLocation: React.FC<Props> = ({
               className="drawer__slider--desktop"
             >
               {data.imageUrls.map((url) => (
-                <SwiperSlide>
+                <SwiperSlide key={url.url}>
                   <img
                     src={url.url}
                     alt="thumbnail"
