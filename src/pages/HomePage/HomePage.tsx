@@ -163,12 +163,14 @@ const HomePage: React.FC = () => {
           setIsVisible={setDrawerVisible}
           data={drawerData}
         />
-        <SearchBar
-          locations={locations}
-          keywords={keywords}
-          searchLocations={searchLocations}
-          clearSearchLocations={clearSearchLocations}
-        />
+        <div className="homepage-search-bar">
+          <SearchBar
+            locations={locations}
+            keywords={keywords}
+            searchLocations={searchLocations}
+            clearSearchLocations={clearSearchLocations}
+          />
+        </div>
         <GoogleMap
           mapContainerClassName="map"
           mapContainerStyle={mapContainerStyle}

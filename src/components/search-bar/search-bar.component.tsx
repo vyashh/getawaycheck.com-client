@@ -74,11 +74,10 @@ const SearchBar: React.FC<Props> = ({
             onChange={(event: any) => handleChange(event)}
           />
           <ComboboxPopover
-            className="search-bar__suggestions"
-            style={suggestionsStyle}
+          // style={suggestionsStyle}
           >
             {searchResults && searchResults!.length > 0 ? (
-              <ComboboxList>
+              <ComboboxList className="search-bar__suggestions">
                 {searchResults!.slice(0, 3).map((result, index) => (
                   <ComboboxOption
                     key={index}
@@ -91,9 +90,9 @@ const SearchBar: React.FC<Props> = ({
                 ))}
               </ComboboxList>
             ) : (
-              <span style={{ display: "block", margin: 8 }}>
-                No results found
-              </span>
+              <ComboboxList className="search-bar__suggestions">
+                <ComboboxOption value="No results" />
+              </ComboboxList>
             )}
           </ComboboxPopover>
         </Combobox>
