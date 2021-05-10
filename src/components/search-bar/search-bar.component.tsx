@@ -58,6 +58,10 @@ const SearchBar: React.FC<Props> = ({
   const handleChange = (event: any) => setSearch(event.target.value);
   const handleClear = () => setSearch("");
   const [tags, setTags] = useState<any>([]);
+  const suggestionsStyle = {
+    width: "100%",
+    left: "0",
+  };
 
   useEffect(() => {
     keywords.map((tag) => {
@@ -76,24 +80,28 @@ const SearchBar: React.FC<Props> = ({
             className="search-bar__bar"
             onChange={(event: any) => handleChange(event)}
           />
-          <ComboboxPopover className="search-bar__suggestions">
-            <ComboboxList style={{ width: "100vw" }}>
-              {searchResults && searchResults!.length > 0 ? (
-                <ComboboxList>
-                  {searchResults!.slice(0, 3).map((result, index) => (
-                    <ComboboxOption
-                      key={index}
-                      value={`${result.text}`}
-                      onClick={() => searchLocations(result.text)}
-                    />
-                  ))}
-                </ComboboxList>
-              ) : (
-                <span style={{ display: "block", margin: 8 }}>
-                  No results found
-                </span>
-              )}
-            </ComboboxList>
+          <ComboboxPopover
+            className="search-bar__suggestions"
+            style={suggestionsStyle}
+          >
+            {searchResults && searchResults!.length > 0 ? (
+              <ComboboxList>
+                {searchResults!.slice(0, 3).map((result, index) => (
+                  <ComboboxOption
+                    key={index}
+                    value={`${result.text}`}
+                    onClick={() => {
+                      searchLocations(result.text);
+                      handleClear();
+                    }}
+                  />
+                ))}
+              </ComboboxList>
+            ) : (
+              <span style={{ display: "block", margin: 8 }}>
+                No results found
+              </span>
+            )}
           </ComboboxPopover>
         </Combobox>
       </div>
