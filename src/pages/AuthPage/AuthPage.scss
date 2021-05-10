@@ -2,13 +2,21 @@
 @import "../../theme/include-media";
 
 .auth-page {
+  overflow: hidden;
   height: 100vh;
   background-color: $background-color;
   text-align: center;
   position: relative;
   background: url("../../assets/img/auth_city.svg");
-  background-repeat: repeat-y;
+  background-repeat: no-repeat;
   background-attachment: fixed;
+  background-size: cover;
+  background-position-y: 70%;
+
+  @include media(">=desktop") {
+    background-size: auto;
+    background-position-y: 100%;
+  }
   &__title {
     // padding-top: 4em;
     font-size: 2em;

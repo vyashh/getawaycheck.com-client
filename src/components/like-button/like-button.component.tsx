@@ -49,7 +49,7 @@ const LikeButton: React.FC<Props> = ({
 
   const addLike = async () => {
     await usersRef
-      .doc(currentUserData.uid)
+      .doc(currentUser.uid)
       .update({ likes: firebase.firestore.FieldValue.arrayUnion(articleId) });
     await articlesRef.update({ likes: increment });
     console.log(likes);
@@ -58,7 +58,7 @@ const LikeButton: React.FC<Props> = ({
 
   const removeLike = async () => {
     await usersRef
-      .doc(currentUserData.uid)
+      .doc(currentUser.uid)
       .update({ likes: firebase.firestore.FieldValue.arrayRemove(articleId) });
     await articlesRef.update({ likes: decrement });
     setLikes(likes - 1);
