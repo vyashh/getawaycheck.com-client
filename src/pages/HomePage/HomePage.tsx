@@ -150,7 +150,7 @@ const HomePage: React.FC = () => {
           <IonButtons slot="end">
             <IonMenuButton style={{ color: "white" }}></IonMenuButton>
           </IonButtons>
-          <IonTitle className="homepage-title">GETAWAYCHECK</IonTitle>
+          <IonTitle className="homepage-title">GETAWAY CHECK</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent className="homepage-content" fullscreen>
