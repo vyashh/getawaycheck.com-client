@@ -9,6 +9,7 @@ import {
   NewspaperOutline,
   HeartOutline,
   LogOutOutline,
+  MailOutline,
 } from "react-ionicons";
 import { Link } from "react-router-dom";
 import { Context } from "../../services/store";
@@ -132,8 +133,28 @@ const Menu: React.FC = () => {
               About us
             </Link>
           </IonItem>
+          <IonItem className="menu__item">
+            <span>
+              <MailOutline
+                color={"#ffffff"}
+                title="settings"
+                height="1em"
+                width="1em"
+              />
+            </span>
+            <Link
+              to="/contact"
+              onClick={async () => await menuController.toggle()}
+            >
+              Contact
+            </Link>
+          </IonItem>
           {currentUser && (
-            <IonItem className="menu__item" onClick={logoutHandler}>
+            <IonItem
+              className="menu__item"
+              onClick={logoutHandler}
+              style={{ color: "#caf53e", cursor: "pointer" }}
+            >
               <span>
                 <LogOutOutline
                   color={"#ffffff"}

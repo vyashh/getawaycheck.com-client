@@ -9,6 +9,7 @@ import AboutPage from "./pages/AboutPage/AboutPage";
 import DealsPage from "./pages/DealsPage/DealsPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import ArticlesPage from "./pages/ArticlesPage/ArticlesPage";
+import ContactPage from "./pages/ContactPage/ContactPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import AuthPage from "./pages/AuthPage/AuthPage";
@@ -28,6 +29,9 @@ const App: React.FC = () => {
             </Route>
             <Route path="/about">
               <AboutPage />
+            </Route>
+            <Route path="/contact">
+              <ContactPage />
             </Route>
             <Route path="/deals">
               <DealsPage />

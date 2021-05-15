@@ -20,6 +20,8 @@ ion-content {
 }
 
 .articles-page {
+  color: white;
+
   margin: 0 1em 0 1em;
   @include media(">=desktop") {
     margin: 0 40em 0 40em;

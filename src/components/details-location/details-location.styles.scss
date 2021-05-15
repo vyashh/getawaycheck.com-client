@@ -7,8 +7,12 @@ div[class^="rbd-"][class*="-dr"] {
 }
 
 .drawer {
+  color: white;
   @include media(">=desktop") {
     margin: 0 20em 0 20em;
+  }
+
+  &__content {
   }
 
   &__slider {

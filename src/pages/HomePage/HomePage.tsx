@@ -156,7 +156,6 @@ const HomePage: React.FC = () => {
       <IonContent className="homepage-content" fullscreen>
         <div className="options">
           <CategoryBubble filter={filterLocations} filterStatus={filter} />
-          {/* <CurrentLocation /> */}
         </div>
         <DetailsLocation
           isVisible={drawerVisble}

@@ -1,0 +1,11 @@
+@import "../../theme/include-media";
+
+.contact-page {
+  color: white;
+  margin-right: 1em;
+  margin-left: 1em;
+  margin-top: 1em;
+  @include media(">=desktop") {
+    margin: 5em 40em 0 40em;
+  }
+}

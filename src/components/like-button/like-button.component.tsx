@@ -79,7 +79,7 @@ const LikeButton: React.FC<Props> = ({
       console.log("login == true");
 
       return (
-        <Link to="/login">
+        <Link to="/auth/login">
           <HeartOutline
             color={"#ffffff"}
             title={"favorite"}

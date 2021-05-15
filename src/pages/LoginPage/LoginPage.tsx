@@ -60,7 +60,13 @@ const LoginPage: React.FC = () => {
               </div>
 
               <div className="login-page__inputs--button">
-                <p style={{ fontSize: ".8em", textAlign: "center" }}>
+                <p
+                  style={{
+                    fontSize: ".8em",
+                    textAlign: "center",
+                    color: "white",
+                  }}
+                >
                   Don't have an account?
                   <span style={{ fontWeight: "bold" }} onClick={toRegister}>
                     {" "}

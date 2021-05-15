@@ -7,6 +7,7 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
+import "./AboutPage.scss";
 
 const AboutPage: React.FC = () => {
   return (
@@ -15,14 +16,12 @@ const AboutPage: React.FC = () => {
         <IonToolbar>
           <IonButtons>
             <IonBackButton />
+            <IonTitle>About us</IonTitle>
           </IonButtons>
-          <IonTitle>About us</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <div
-          style={{ marginRight: "1em", marginLeft: "1em", marginTop: "1em" }}
-        >
+        <div className="about-page">
           Getaway Check is het platform waarmee je de leukste trendy hotspots in
           Amsterdam vindt, gebaseerd op jouw huidige locatie. Door middel van
           een zoekfilter kun je precies vinden waar je op dat moment naar op

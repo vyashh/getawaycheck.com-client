@@ -146,14 +146,13 @@ const DetailsLocation: React.FC<Props> = ({
             </div>
           </div>
           <div className="drawer__likes">
-            {likes > 0 ? (
-              <p>{likes} person liked this post</p>
-            ) : (
-              <p>{likes} people liked this post</p>
-            )}
+            {likes > 0 ? <p>{likes} Likes</p> : <p>0 Likes</p>}
           </div>
           <p style={{ opacity: "0.5" }}>{data.address}</p>
-          <div dangerouslySetInnerHTML={{ __html: data.content }} />
+          <div
+            className="drawer__content"
+            dangerouslySetInnerHTML={{ __html: data.content }}
+          />
         </div>
       </Drawer>
     );

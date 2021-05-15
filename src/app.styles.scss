@@ -3,3 +3,8 @@
 .primary-color {
   color: $primary-color;
 }
+
+ion-toolbar {
+  color: white;
+  --background: black !important;
+}
