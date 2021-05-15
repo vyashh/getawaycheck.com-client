@@ -16,7 +16,7 @@ const ContactPage: React.FC = () => {
         <IonToolbar>
           <IonButtons>
             <IonBackButton />
-            <IonTitle>About us</IonTitle>
+            <IonTitle>Contact</IonTitle>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
